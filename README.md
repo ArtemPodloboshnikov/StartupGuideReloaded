@@ -1,0 +1,2 @@
+# StartupGuideReloaded
+This is a hackathon "Leaders of Digital Innovation" in which you need to come up with and implement ideas on one of 10 topics. Teams from 3 to 5 people take part in the competition. My team chose the theme "PERSONALIZED RECOMMENDATION SYSTEM BY SERVICES MOSCOW FOR STARTUPS" for the Startup Guide website. The term is 2 weeks. During this time, I need to write a website for Next.js using UI KIT. The backend will be written by another person in php based on the database that was issued as a sample
