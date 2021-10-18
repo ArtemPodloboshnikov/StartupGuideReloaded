@@ -1,0 +1,44 @@
+@use "sass:map";
+
+$white: #FFFFFF;
+$crimson: #FF1F55;
+$blue: #1F5EFF;
+$beige: #EEEEEE;
+$grayish_blue: #6E7A99;
+
+$contrast_color: (
+
+    $crimson: $white,
+    $blue: $white,
+    $white: $grayish_blue
+
+);
+
+@mixin wrap_btn($bg_color, $hover: 'off', $txt_color: map.get($contrast_color, $bg_color))
+{
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    background-color: $bg_color;
+    & *
+    {
+        font-family: 'IBM Plex Sans';
+        color: $txt_color;
+        outline: none;
+        border: none;
+        background-color: transparent;
+    }
+
+    @if $hover == 'on'
+    {
+        &:hover
+        {
+            background-color: $txt_color;
+
+            & *
+            {
+                color: $bg_color
+            }
+        }
+    }
+}
