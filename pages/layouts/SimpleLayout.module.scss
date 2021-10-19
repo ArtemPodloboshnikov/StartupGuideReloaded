@@ -1,0 +1,10 @@
+@import '../../styles/vars.scss';
+
+.main
+{
+    display: grid;
+    grid-template-areas: 
+    'nav head head'
+    'nav main main'
+    'foot foot foot';
+}

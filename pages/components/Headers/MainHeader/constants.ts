@@ -1,8 +1,9 @@
+const icon_folder = '/icons/';
+
 const constants = 
 {
-    logo_path: "/icons/logo.svg",
-    input_placeholder: "Найти стартап, инвестора, сервисы",
-    button_text: "Зарегестрируйся"
+    INPUT_PLACEHOLDER: "Найти стартап, инвестора, сервисы",
+    BUTTON_TEXT: "Зарегестрируйся"
 }
 
 export default constants;

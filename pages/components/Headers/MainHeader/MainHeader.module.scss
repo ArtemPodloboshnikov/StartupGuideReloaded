@@ -1,33 +1,17 @@
 @import '../../../../styles/vars.scss';
 
-.wrap
-{
-    display: grid;
-    grid-template-columns: 1fr 8fr;
-    width: 100%;
-    gap: 3%;
-}
 .header
 {
     display: grid;
     grid-template-columns: 3fr 1fr;
     grid-gap: 39px;
     width: 100%;
+    grid-area: head;
+    height: fit-content;
 
     & > div:first-child
     {
         align-self: center;
-    }
-}
-.navbar
-{
-    display: grid;
-    grid-auto-flow: row;
-    justify-items: center;
-    align-items: center;
 
-    & > img
-    {
-        width: 3.523em;
     }
 }

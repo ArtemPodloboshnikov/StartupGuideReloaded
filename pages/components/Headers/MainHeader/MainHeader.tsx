@@ -8,19 +8,15 @@ import constants from './constants';
 const MainHeader:NextPage = ()=>{
 
     return (
-        <div className={classes.wrap}>
-            <nav className={classes.navbar}>
-                <img src={constants.logo_path} alt='Startup Guide'/>
-            </nav>
-            <header className={classes.header}>
-                <CircleInput color='white'>
-                {constants.input_placeholder}
-                </CircleInput>
-                <SquareBtn>
-                {constants.button_text}
-                </SquareBtn>
-            </header>
-        </div>
+        
+        <header className={classes.header}>
+            <CircleInput color='white'>
+            {constants.INPUT_PLACEHOLDER}
+            </CircleInput>
+            <SquareBtn>
+            {constants.BUTTON_TEXT}
+            </SquareBtn>
+        </header>
     )
 }
 export default MainHeader;
