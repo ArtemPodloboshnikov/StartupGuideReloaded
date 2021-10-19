@@ -4,7 +4,7 @@ import Link from 'next/link'
 const Home: NextPage = () => {
     
   return (
-    <div style={{gridArea: 'main'}}>
+    <div>
     Hello World!
     </div>
   )

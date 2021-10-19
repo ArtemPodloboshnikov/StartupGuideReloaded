@@ -43,6 +43,10 @@ const constants =
         KEY: {
             path: `${icon_folder}key.svg`,
             alt: 'площадки пилотное тестирование'
+        },
+        LOGO_INNOVATION: {
+            path: `${icon_folder}logo_innovation_agency.svg`,
+            alt: 'агенство инноваций города Москвы'
         }
     }
 }

@@ -1,5 +1,4 @@
 import type { NextPage } from 'next';
-import Head  from 'next/head';
 import SquareBtn from '../../Buttons/SquareBtn/SquareBtn';
 import CircleInput from '../../Inputs/CircleInput/CircleInput';
 import classes from './MainHeader.module.scss';

@@ -5,6 +5,13 @@ $crimson: #FF1F55;
 $blue: #1F5EFF;
 $beige: #EEEEEE;
 $grayish_blue: #6E7A99;
+$dark_blue: #171E2D;
+$night_blue: #1D2435;
+$medium_blue: #24314A;
+$grayish_light: #F2F3F6;
+$grayish_dark: #878B95;
+
+
 
 $contrast_color: (
 
@@ -14,11 +21,15 @@ $contrast_color: (
 
 );
 
+%items_center
+{
+    justify-items: center;
+    align-items: center;
+}
 @mixin wrap_btn($bg_color, $hover: 'off', $txt_color: map.get($contrast_color, $bg_color))
 {
     display: grid;
-    justify-items: center;
-    align-items: center;
+    @extend %items_center;
     background-color: $bg_color;
     & *
     {

@@ -3,8 +3,20 @@
 .main
 {
     display: grid;
+    grid-template-columns: 96px repeat(2, 1fr);
+    grid-template-rows: 70px 3fr 1fr;
     grid-template-areas: 
     'nav head head'
     'nav main main'
     'foot foot foot';
+
+    .content
+    {
+        grid-area: main;
+        display: grid;
+        grid-template-columns: repeat(12, 81px);
+        margin-left: 39px;
+        margin-right: 39px;
+        grid-column-gap: 20px;
+    }
 }
