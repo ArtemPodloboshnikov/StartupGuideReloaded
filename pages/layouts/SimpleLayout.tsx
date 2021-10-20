@@ -3,7 +3,7 @@ import Head  from 'next/head';
 import MainHeader from '../components/Headers/MainHeader/MainHeader';
 import Navbar from '../components/Navbar/MainNavbar/MainNavbar';
 import MainFooter from '../components/Footer/MainFooter/MainFooter';
-import clases from './SimpleLayout.module.scss';
+import classes from './SimpleLayout.module.scss';
 
 const SimpleLayout:NextPage = ({children})=>{
 
@@ -12,10 +12,10 @@ const SimpleLayout:NextPage = ({children})=>{
             <Head>
                 <title>Startup Guide</title>
             </Head>
-            <main className={clases.main}>
+            <main className={classes.main}>
                 <Navbar/>
                 <MainHeader/>
-                <div className={clases.content}>
+                <div className={classes.content}>
                     {children}
                 </div>
                 <MainFooter/>

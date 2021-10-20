@@ -1,6 +1,7 @@
 @use "sass:map";
 
 $white: #FFFFFF;
+$grayish_white: #E1E4F4;
 $crimson: #FF1F55;
 $blue: #1F5EFF;
 $beige: #EEEEEE;
@@ -12,12 +13,18 @@ $grayish_light: #F2F3F6;
 $grayish_dark: #878B95;
 
 
-
 $contrast_color: (
 
     $crimson: $white,
     $blue: $white,
-    $white: $grayish_blue
+    $white: $grayish_blue,
+    $grayish_white: $blue
+
+);
+
+$hover_color: (
+
+    $grayish_white: $dark_blue
 
 );
 
