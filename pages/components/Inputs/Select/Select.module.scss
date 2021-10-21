@@ -1,0 +1,42 @@
+@import '../../../../styles/vars.scss';
+
+@mixin select($color)
+{
+    display: flex;
+    flex-direction: column;
+    & > div:first-child
+    {
+        display: flex;
+        flex-direction: row;
+        & > img
+        {
+            max-width: 5%;
+            object-fit: contain;
+            cursor: pointer;
+        }
+    }
+
+    & > div:last-child
+    {
+        width: 85%;
+        left: 8%;
+        height: 16vh;
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        margin-top: 10%;
+        z-index: inherit;
+        background-color: $color;
+        overflow-y: auto;
+
+        & > div
+        {
+            cursor: pointer;
+        }
+    }
+}
+
+.wrap_white
+{
+    @include select($grayish_white);
+}

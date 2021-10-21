@@ -1,4 +1,5 @@
-import {Dispatch, memo, ReactNode, SetStateAction, useState} from 'react';
+import {Dispatch, memo, SetStateAction, useState} from 'react';
+import Select from '../Select/Select';
 import classes from './HintInput.module.scss';
 
 type Props = {
@@ -12,17 +13,15 @@ type Props = {
     readonly correctValue: RegExp,
     readonly value: string,
     readonly type?: string,
-    readonly optionsText?: string[],
+    readonly optionsText?: {[key: string]: string[]},
     readonly optionsValue?: string[],
     readonly setValue: Dispatch<SetStateAction<string>>
 }
 
 const HintInput = ({className, placeholder, type='text', color='white', hint, error, important=false, correctValue, value, setValue, optionsValue, optionsText}:Props) =>{
     
-    const [selectValue, setSelectValue] = useState('');
-    const [options, setOptions] = useState([])
-    const visible = (correctValue.test(value)?{display: 'none'} : {display: 'block'});
-    console.log(optionsText)
+    
+    
     return (
 
         <div className={`${classes['wrap_' + color]} ${className}`}>
@@ -30,42 +29,13 @@ const HintInput = ({className, placeholder, type='text', color='white', hint, er
                 <p>{hint}</p>
                 <span>{((important)? '*': '')}</span>
             </div>
-            {(type=='select'?
-            <div className={classes.select}>
-                <input value={selectValue} 
-                onBlur={()=>setOptions([])}
-                onChange={(e)=>{
-                    setSelectValue(e.target.value);
-                    const regexp = new RegExp(`${e.target.value}`, 'i');
-                    let buf_options: any = [];
-                    optionsText?.map((text, index)=>{
-                        console.log(regexp.test(text))
-                        if (regexp.test(text))
-                        {
-                            buf_options.push(
-                                <div 
-                                key={(optionsValue !== undefined)?optionsValue[index]: text}
-                                onClick={()=>{
-
-                                    setSelectValue(text)
-                                    setValue(text);
-                                    setOptions([]);
-
-                                }}
-                                id={(optionsValue !== undefined)?optionsValue[index]: text}>
-                                    {text}
-                                </div>
-                                )
-                        }
-                            
-                    })
-                    console.log(buf_options)
-                    setOptions(buf_options);
-                }}/>
-                <div style={{display: ['none', 'block'][+(options.length > 0)]}}>
-                   {options}
-                </div>
-            </div>
+            {(type=='select' && optionsText !== undefined?
+            <Select
+            values={optionsText}
+            value={value}
+            setValue={setValue}
+            color={color}
+            />
             :
             <input 
             type={type}
@@ -74,7 +44,7 @@ const HintInput = ({className, placeholder, type='text', color='white', hint, er
             placeholder={placeholder}
             />
             )}
-            <p style={visible} key={`${correctValue.test(value)}`}>{error}</p>
+            <p style={(correctValue.test(value)?{display: 'none'} : {display: 'block'})} key={`${correctValue.test(value)}`}>{error}</p>
         </div>
     )
 

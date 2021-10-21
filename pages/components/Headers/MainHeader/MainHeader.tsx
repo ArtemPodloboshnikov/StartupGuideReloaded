@@ -9,10 +9,13 @@ import Checkbox from '../../Inputs/Checkbox/Checkbox';
 import classes from './MainHeader.module.scss';
 import constants from './constants';
 import russianCities from '../../../russianCities';
+import dictionaryArray from '../../../../functions/dictionaryArray';
 
 const MainHeader:NextPage = ()=>{
 
-    const cities: string[] = russianCities.map((city)=>{return city.city})
+    const cities = dictionaryArray(russianCities.map((city)=>{return city.city}));
+    
+    console.log(cities)
     const [close, setClose] = useState(true);
 
     const [fio, setFio] = useState('');
@@ -96,7 +99,7 @@ const MainHeader:NextPage = ()=>{
                     value={doublePassword}
                     setValue={setDoublePassword}
                     />
-                    <HintInput 
+                    <HintInput
                     type='select'
                     optionsText={cities}
                     hint={constants.REGISTRATION_INPUTS.CITY.hint}

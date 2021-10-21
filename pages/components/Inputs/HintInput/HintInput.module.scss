@@ -54,23 +54,6 @@ $title_color: (
         color: $crimson;
     }
 
-    .select
-    {
-        display: flex;
-        flex-direction: column;
-
-        & > div
-        {
-            display: flex;
-            flex-direction: column;
-            position: relative;
-
-            & > div
-            {
-                cursor: pointer;
-            }
-        }
-    }
 }
 .wrap_white
 {
