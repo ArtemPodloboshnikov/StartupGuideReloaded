@@ -16,7 +16,10 @@ const SimpleWindow = ({className, children, close, setClose}:Props) =>{
 
     return (
     
-        <div className={classes.wrap} style={{display: ['block', 'none'][+(close)]}}>
+        <div 
+        className={classes.wrap + ' ' + className} 
+        style={{display: ['block', 'none'][+(close)]}}
+        >
             <div className={classes.shadow}></div>
             <div className={classes.wrap_window}>
                 <div className={classes.window}>

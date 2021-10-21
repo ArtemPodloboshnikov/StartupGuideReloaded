@@ -3,35 +3,43 @@ const icon_folder = '/icons/';
 const constants = 
 {
     INPUT_PLACEHOLDER: "Найти стартап, инвестора, сервисы",
-    BUTTON_TEXT: "Зарегестрируйся",
+    BUTTON_TEXT: "Зарегистрируйся",
 
-    TITLE_WINDOW: 'Зарегистрироваться',
-    BUTTON_WINDOW: 'Войти',
+    TITLE_WINDOW: 'Регистрация',
+    BUTTON_WINDOW: {
+        top: 'Войти',
+        bottom: 'Зарегистрироваться'
+    },
+    WINDOW_CHECKBOX: {
+        text: 'Даю свое согласие на обработку ГБУ «Агентство инноваций Москвы» моих персональных данных на условиях',
+        link: 'Соглашения об обработке персональных данных.',
+        href: 'https://startupguide.innoagency.ru/files/innoagency_soglashenie_pd.pdf'
+    },
     REGISTRATION_INPUTS: {
         
         FIO: {
             hint: 'ФИО',
             placeholder: 'Иванов Иван Иванович',
-            error: 'Вы не ввели своё имя',
+            error: 'Фамилия Имя Отчетсво',
             correct_value: /^\D* \D* \D{1,}$/g
         },
         PHONE : {
             hint: 'телефон',
             placeholder: '+7(___) ___-__-__',
-            error: 'Вы не ввели свой номер',
-            correct_value: /^(\s*)?(\+)?([- _():=+]?\d[- _():=+]?){10,14}(\s*)?$/g
+            error: 'Неккоректный номер телефона',
+            correct_value: /(\+7|8)[\s(]?(\d{3})[\s)]?(\d{3})[\s-]?(\d{2})[\s-]?(\d{2})/g
         },
         EMAIL : {
             hint: 'email',
             placeholder: 'address@service.com',
-            error: 'Вы не ввели свою почту',
+            error: 'Введена некорректная почта',
             correct_value: /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-]+$/g
         },
         PASSWORD : {
             hint: 'пароль',
             placeholder: '*******',
-            error: 'Вы не ввели пароль',
-            correct_value: /.+/g
+            error: 'Не менее 8 символов',
+            correct_value: /(.+){8,}/g
         },
         DOUBLE_PASSWORD : {
             hint: 'повторный пароль',
@@ -45,7 +53,8 @@ const constants =
             error: '',
             correct_value: /.+/g
         },
-    }
+    },
+    DISABLE_TEXT_WINDOW: 'Не все поля заполнены!'
 }
 
 export default constants;

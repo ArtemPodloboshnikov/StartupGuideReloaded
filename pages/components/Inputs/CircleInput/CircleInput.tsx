@@ -1,4 +1,3 @@
-import {ReactNode} from 'react';
 import classes from './CircleInput.module.scss';
 
 type Props = {
@@ -6,7 +5,7 @@ type Props = {
     readonly color?: string,
     readonly className?: string,
     readonly icon?: string,
-    readonly children?: ReactNode
+    readonly placeholder: string,
 }
 
 const icons: {[key: string]: string} = {
@@ -14,12 +13,12 @@ const icons: {[key: string]: string} = {
     'search': 'loupe.svg'
 }
 
-const CircleInput = ({className, children, color='blue', icon='search'}:Props) =>{
+const CircleInput = ({className, color='blue', icon='search', placeholder}:Props) =>{
 
     return (
 
         <div className={`${classes['wrap_' + color]} ${className}`}>
-            <input placeholder={children as string}/>
+            <input placeholder={placeholder}/>
             <img src={`/icons/${icons[icon]}`}/>
         </div>
     )

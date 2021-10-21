@@ -1,15 +1,18 @@
 import type { NextPage } from 'next';
 import { useState } from 'react';
-import SquareBtn from '../../Buttons/SquareBtn/SquareBtn';
+import SimpleBtn from '../../Buttons/SimpleBtn/SimpleBtn';
 import CircleInput from '../../Inputs/CircleInput/CircleInput';
 import NeomorhBtn from '../../Buttons/NeomorhBtn/NeomorhBtn';
 import HintInput from '../../Inputs/HintInput/HintInput';
 import SimpleWindow from '../../ModalWindows/SimpleWindow/SimpleWindow';
+import Checkbox from '../../Inputs/Checkbox/Checkbox';
 import classes from './MainHeader.module.scss';
 import constants from './constants';
+import russianCities from '../../../russianCities';
 
 const MainHeader:NextPage = ()=>{
 
+    const cities: string[] = russianCities.map((city)=>{return city.city})
     const [close, setClose] = useState(true);
 
     const [fio, setFio] = useState('');
@@ -18,13 +21,32 @@ const MainHeader:NextPage = ()=>{
     const [password, setPassword] = useState('');
     const [doublePassword, setDoublePassword] = useState('');
     const [city, setCity] = useState('');
+    const [checkbox, setCheckbox] = useState(false);
+    
+    const marginTop = {marginTop: '5%'};
 
+    const inputs = [fio, phone, email, password, doublePassword, checkbox];
+    let correct: boolean = false;
+    
+    for (let input of inputs)
+    {
+        if (!input)
+        {
+            correct = false
+            break;
+        }
+        else
+        {
+            correct = true;
+        }
+    }
+    
     return (
         <>
         <SimpleWindow close={close} setClose={setClose}>
                 <div>
                     <p>{constants.TITLE_WINDOW}</p>
-                    <NeomorhBtn color='white'>{constants.BUTTON_WINDOW}</NeomorhBtn>
+                    <NeomorhBtn color='white'>{constants.BUTTON_WINDOW.top}</NeomorhBtn>
                 </div>
                 <div className={classes.list}>
                     <HintInput 
@@ -75,6 +97,8 @@ const MainHeader:NextPage = ()=>{
                     setValue={setDoublePassword}
                     />
                     <HintInput 
+                    type='select'
+                    optionsText={cities}
                     hint={constants.REGISTRATION_INPUTS.CITY.hint}
                     error={constants.REGISTRATION_INPUTS.CITY.error}
                     placeholder={constants.REGISTRATION_INPUTS.CITY.placeholder}
@@ -82,16 +106,37 @@ const MainHeader:NextPage = ()=>{
                     value={city}
                     setValue={setCity}
                     />
-        
                 </div>
+                <Checkbox
+                id='IAgree'
+                value={checkbox}
+                setValue={setCheckbox}
+                text={constants.WINDOW_CHECKBOX.text}
+                link={constants.WINDOW_CHECKBOX.link}
+                href={constants.WINDOW_CHECKBOX.href}
+                style={marginTop}
+                />
+                <p 
+                className={classes.disable_text_button}
+                style={((!correct)? {display: 'block'} : {display: 'none'})}>
+                    {constants.DISABLE_TEXT_WINDOW}
+                </p>
+                <SimpleBtn
+                type='circle'
+                color='blue'
+                disable={!correct}
+                text={constants.BUTTON_WINDOW.bottom} 
+                value={close} 
+                setValue={setClose}
+                style={marginTop}
+                />
             </SimpleWindow>
         <header className={classes.header}>
-            <CircleInput color='white'>
-            {constants.INPUT_PLACEHOLDER}
-            </CircleInput>
-            <SquareBtn value={close} setValue={setClose}>
-            {constants.BUTTON_TEXT}
-            </SquareBtn>
+            <CircleInput color='white' placeholder={constants.INPUT_PLACEHOLDER}/>
+            <SimpleBtn
+            text={constants.BUTTON_TEXT} 
+            value={close} 
+            setValue={setClose}/>
         </header>
         </>
     )
