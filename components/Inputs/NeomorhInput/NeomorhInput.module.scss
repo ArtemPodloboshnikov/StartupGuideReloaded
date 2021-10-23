@@ -1,0 +1,92 @@
+@use 'sass:map';
+@import '../../../styles/vars.scss';
+
+$input_color_bg: (
+    $white: $grayish_white, 
+    $dark_blue: $grayish_blue_dark
+);
+$input_text_color: (
+
+    $white: $blue,
+    $dark_blue: $white
+);
+
+@mixin neomorh($type, $shadow, $color: '')
+{
+    width: 100%;
+    border-radius: 149px;
+    height: fit-content;
+    width: fit-content;
+
+    @if $shadow == 'dark_blue'
+    {
+        box-shadow: 0 -3px 10px #262e42, 0 10px 10px #171e2d;
+    }
+    @else if $shadow == 'white'
+    {
+        box-shadow: 0px -3px 10px #ffffff, 0px 10px 10px #e1e4f4;
+    }
+
+    @if $type == 'circle_btn'
+    {
+        
+        padding: 12px 25px;
+        & *
+        {
+            font-size: 12px;
+            font-weight: 500;
+        }
+    }
+    @else if $type == 'networks'
+    {
+        padding: 7px 25px;
+        display: grid;
+        grid-template-columns: 95% 5%;
+        background-color: $color;
+        & > input
+        {
+            width: 100%;
+            background-color: map.get($input_color_bg, $color);
+            color: map.get($input_text_color, $color);
+            border: 1px solid $color;
+            border-radius: 149px 0 0 149px;
+            margin-top: -7px;
+            margin-bottom: -7px;
+            margin-left: -25px;
+            text-align: center;
+            
+            &::placeholder
+            {
+                color: $grayish;
+                text-align: center;
+            }
+        }
+
+        & > img
+        {
+            max-width: 6vw;
+            object-fit: contain;
+            justify-self: center;
+        }
+
+    }
+}
+.wrap_circle_btn_dark_blue
+{
+    @include wrap_btn($dark_blue, 'on');
+    @include neomorh('circle_btn', 'dark_blue');
+}
+.wrap_circle_btn_white
+{
+    @include wrap_btn($grayish_white, 'on');
+    @include neomorh('circle_btn', 'white');
+}
+
+.wrap_networks_dark_blue
+{
+    @include neomorh('networks', 'dark_blue', $dark_blue);
+}
+.wrap_networks_white
+{
+    @include neomorh('networks', 'white', $white);
+}

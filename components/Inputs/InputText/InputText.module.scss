@@ -1,0 +1,27 @@
+@import '../../../styles/vars.scss';
+
+@mixin input($color){
+    
+    & > input
+    {
+        border-bottom: 1px solid $color;
+        color: $color;
+        font-size: 14px;
+        line-height: 18px;
+
+        &::placeholder
+        {
+            text-align: center;
+            color: $grayish;
+        }
+    }
+}
+
+.wrap_dark_blue
+{
+    @include input($dark_blue);
+}
+.wrap_white
+{
+    @include input($white);
+}

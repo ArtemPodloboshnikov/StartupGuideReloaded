@@ -1,0 +1,33 @@
+@use 'sass:map';
+@import '../../../styles/vars.scss';
+
+@mixin circle($bg_color, $txt_color: map.get($contrast_color, $bg_color))
+{
+    display: grid;
+    border-radius: 15px;
+    grid-template-columns: 5fr 1fr;
+    padding: 9px 14px;
+    font-size: 1em;
+    line-height: 21px;
+    background-color: $bg_color;
+
+    & > input
+    {
+        width: 100%;
+        color: $txt_color;
+    }
+    & > img
+    {
+        justify-self: end;
+    }
+}
+.wrap_blue
+{
+    @include circle($blue);
+}
+.wrap_white
+{
+    @include circle($white);
+    border: $beige solid 2px;
+    border-radius: 7px;
+}

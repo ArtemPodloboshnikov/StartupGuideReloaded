@@ -1,0 +1,60 @@
+@use 'sass:map';
+@import '../../../styles/vars.scss';
+
+@mixin select($color)
+{
+    display: grid;
+    grid-auto-flow: column;
+    height: fit-content;
+   
+    & > div:first-child
+    {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        & > input
+        {
+            width: 100%;
+            font-size: 14px;
+
+        }
+        & > img
+        {
+            width: 10%;
+            object-fit: contain;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+    }
+
+    & > div:last-child
+    {
+        width: fit-content;
+        height: 16vh;
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        margin-top: 1.5%;
+        background-color: $color;
+        overflow-y: auto;
+
+        & > div
+        {
+            cursor: pointer;
+            color: map.get($contrast_color, $color);
+        }
+    }
+}
+.select_active
+{
+    transform: rotate(180deg);
+
+}
+.wrap_white
+{
+    @include select($grayish_white);
+}
+.wrap_dark_blue
+{
+    @include select($dark_blue);
+}

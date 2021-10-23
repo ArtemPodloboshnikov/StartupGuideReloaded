@@ -1,0 +1,20 @@
+@import '../../../styles/vars.scss';
+
+.navbar
+{
+    display: grid;
+    grid-auto-flow: row;
+    justify-items: center;
+    align-items: center;
+    grid-area: nav;
+    grid-row-gap: 30px;
+
+    & > img
+    {
+        width: 1.3em;
+    }
+    & > img:first-child
+    {
+        width: 3.523em;
+    }
+}

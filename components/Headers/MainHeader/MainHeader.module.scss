@@ -1,0 +1,29 @@
+@import '../../../styles/vars.scss';
+
+.header
+{
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    grid-gap: 39px;
+    width: 100%;
+    grid-area: head;
+    height: fit-content;
+    
+    & > div:first-child
+    {
+        align-self: center;
+
+    }
+}
+.disable_text_button
+{
+    font-size: 14px;
+    font-weight: 700;
+    color: $crimson;
+}
+.list
+{
+    display: flex;
+    flex-direction: column;
+    margin-top: 3%;
+}

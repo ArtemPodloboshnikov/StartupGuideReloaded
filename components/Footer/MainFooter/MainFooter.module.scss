@@ -1,0 +1,74 @@
+@import '../../../styles/vars.scss';
+
+.footer
+{
+    display: grid;
+    grid-template-columns: minmax(260px, 30%) minmax(auto, 70%);
+    grid-area: foot;
+    width: 100%;
+    height: 100%;
+
+    & p 
+    {
+        font-size: .8rem;
+    }
+
+    & > div:first-child
+    {
+        background-color: $dark_blue;
+        display: grid;
+        @extend %items_center;
+
+    }
+    & > div:last-child
+    {
+        background-color: $night_blue;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        padding: 2.75rem 2.75rem 1.75rem;
+
+
+        & > div:first-child
+        {
+            display: grid;
+            @extend %items_center;
+            align-items: start;
+
+            & > div
+            {
+                & h5 > a
+                {
+                    text-decoration: underline;
+                    color: $grayish_light;
+                }
+                & p
+                {
+                    color: $grayish_dark;
+                }
+            }
+        }
+        & > div:last-child
+        {
+            display: flex;
+            flex-direction: column;
+
+            & > div
+            {
+                & p
+                {
+                    color: $grayish_dark;
+                    line-height: 140%;
+                }
+                & p:first-child > span
+                {
+                    text-transform: uppercase;
+                    color: $beige;
+                }
+                & > p:last-child > span
+                {
+                    color: $crimson;
+                }
+            }
+        }
+    }
+}

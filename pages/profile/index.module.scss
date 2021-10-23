@@ -1,0 +1,68 @@
+@import '../../styles/vars.scss';
+
+
+.load_photo
+{
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+}
+.personal_data
+{
+    @include title($night_blue);
+    display: grid;
+    grid-row-gap: 15%;
+    grid-auto-flow: row;
+    grid-column: 3 / 4;
+    grid-row: 1 / 2;
+    
+}
+.profile
+{
+    @include title($night_blue);
+    display: grid;
+    grid-auto-flow: row;
+    grid-column: 5 / 9;
+    grid-row: 1 / 3;
+
+    & > div
+    {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        & > div:first-child
+        {
+            display: grid;
+            grid-auto-flow: row;
+            grid-template-rows: 1fr 4fr;
+            & > div:first-child
+            {
+                width: 100%;
+            }
+            & > span
+            {
+                justify-self: stretch;
+                color: $grayish;
+            }
+        }
+        & > div:last-child
+        {
+            margin-left: 10%;
+        }
+    }
+}
+.networks
+{
+    display: grid;
+    grid-auto-flow: row;
+    grid-column: 1 / 6;
+    grid-row: 5 / 7;
+    @include title($night_blue);
+    & > div:last-child
+    {
+        display: grid;
+        align-items: center;
+        justify-items: start;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+
+    }
+}

@@ -1,0 +1,72 @@
+@use "sass:map";
+@import '../../../styles/vars.scss';
+
+$title_color: (
+
+    $grayish_white: $grayish_blue
+);
+
+@mixin hint($color)
+{
+    display: flex;
+    flex-direction: column;
+    // border-radius: 6px;
+    border: 1px solid $white;
+    padding: 10px;
+
+    & *
+    {
+        width: 100%;
+    }
+    & > input
+    {
+        color: map.get($hover_color, $color);
+        font-size: 14px;
+        &:focus
+        {
+
+            border-bottom: 1px solid map.get($hover_color, $color);
+        
+        }
+    }
+    & > div:first-child
+    {
+        font-size: 14px;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        @extend %items_center;
+        & > p
+        {
+            color: map.get($title_color, $grayish_white);
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+        & > span
+        {
+            text-align: right;
+            color: $crimson;
+            font-weight: 600;
+        }
+    }
+    & > div:last-child
+    {
+        & img
+        {
+            max-width: 5%;
+        }
+        & > div:last-child
+        {
+            margin-top: 6%;
+        }
+    }
+    & > p:last-child
+    {
+        font-size: 12px;
+        color: $crimson;
+    }
+
+}
+.wrap_white
+{
+    @include hint($grayish_white);
+}

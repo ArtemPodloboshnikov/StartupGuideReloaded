@@ -11,6 +11,8 @@ $night_blue: #1D2435;
 $medium_blue: #24314A;
 $grayish_light: #F2F3F6;
 $grayish_dark: #878B95;
+$grayish_blue_dark: #303947;
+$grayish: #7D89A4;
 
 
 $contrast_color: (
@@ -18,7 +20,8 @@ $contrast_color: (
     $crimson: $white,
     $blue: $white,
     $white: $grayish_blue,
-    $grayish_white: $blue
+    $grayish_white: $blue,
+    $dark_blue: $grayish_white
 
 );
 
@@ -38,8 +41,10 @@ $hover_color: (
     display: grid;
     @extend %items_center;
     background-color: $bg_color;
+    cursor: pointer;
     & *
     {
+        cursor: pointer;
         font-family: 'IBM Plex Sans';
         color: $txt_color;
         outline: none;
@@ -58,5 +63,28 @@ $hover_color: (
                 color: $bg_color
             }
         }
+    }
+}
+@mixin title($color)
+{
+    & > .title
+    {
+        display: flex;
+        flex-direction: column;
+        height: fit-content;
+        & > div
+        {
+            width: 30px;
+            background-color: $color;
+            height: 5px;
+        }
+
+        & > h3
+        {
+            margin: 0;
+            padding: 0;
+            color: $color;
+        }
+      
     }
 }
