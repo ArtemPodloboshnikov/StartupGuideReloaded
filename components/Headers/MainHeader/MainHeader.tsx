@@ -1,6 +1,6 @@
 import type { NextPage } from 'next';
 import Link from 'next/link';
-import {useRouter} from 'next/router';
+import {NextRouter, useRouter} from 'next/router';
 import { useFormik } from 'formik';
 import { useState, useMemo, useEffect } from 'react';
 import postRequest from '../../../functions/postRequest';
@@ -52,15 +52,16 @@ const MainHeader:NextPage = ()=>{
         },
         onSubmit: ({fio, email, phone, password, double_password, city, I_agree_window_checkbox, telegram})=>{
 
-            async function log_in()
+            async function log_in(router: NextRouter)
             {
                 const response = await postRequest(`${api.HOST}${api.POST.login.query}?${api.POST.login.parameters.EMAIL}=${email}&${api.POST.login.parameters.PASSWORD}=${password}`,
                 {})
                 console.log(response)
+                router.push(constants.BUTTON_WINDOW.bottom.enter.url)
             } 
-            log_in()
-            // setClose(!close);
             const router = useRouter();
+            log_in(router);
+            // setClose(!close);
             // router.push('/profile');
         }
     })
@@ -119,13 +120,13 @@ const MainHeader:NextPage = ()=>{
         close={close} 
         setClose={setClose}
         >
-                <div id={ids_pages_window[0]}>
+                <div id={ids_pages_window[constants.BUTTON_WINDOW.top.registration.index_page]}>
                     <div>
                         <p>{constants.TITLES_WINDOW.enter}</p>
                         <NeomorhInput
                         setValue={()=>{
 
-                            setCurrentPage(constants.BUTTON_WINDOW.top.registration.index_page)
+                            setCurrentPage(constants.BUTTON_WINDOW.top.enter.index_page);
                         }}
                         name={constants.BUTTON_WINDOW.top.enter.name}
                         type={inputsType.inputs.neomorh.CIRCLE_BTN}
@@ -213,7 +214,7 @@ const MainHeader:NextPage = ()=>{
                     image={inputsType.file_uploader.IMAGE.images.PROFILE}
                     color={colors.DARK_BLUE}
                     name={constants.REGISTRATION_INPUTS.FILES_UPLOADER.name}
-                    style={{width: '50%', justifySelf: 'center'}}
+                    style={{width: '50%', margin: '0 auto'}}
                     />
                     <NeomorhInput
                     name={constants.REGISTRATION_INPUTS.TELEGRAM.name}
@@ -253,13 +254,13 @@ const MainHeader:NextPage = ()=>{
                         <input type='submit' value={constants.BUTTON_WINDOW.bottom.registration.text}/>    
                     </SimpleBtn>
                 </div>
-                <div id={ids_pages_window[constants.BUTTON_WINDOW.top.registration.index_page]}>
+                <div id={ids_pages_window[constants.BUTTON_WINDOW.top.enter.index_page]}>
                     <div>
                         <p>{constants.TITLES_WINDOW.enter}</p>
                         <NeomorhInput
                         setValue={()=>{
 
-                            setCurrentPage(constants.BUTTON_WINDOW.top.enter.index_page)
+                            setCurrentPage(constants.BUTTON_WINDOW.top.registration.index_page)
                         }}
                         name={constants.BUTTON_WINDOW.top.registration.name}
                         type={inputsType.inputs.neomorh.CIRCLE_BTN}

@@ -30,11 +30,17 @@ $input_text_color: (
     @if $type == 'circle_btn'
     {
         
-        padding: 12px 25px;
         & *
         {
             font-size: 12px;
             font-weight: 500;
+        }
+        & > button
+        {
+            width: 100%;
+            padding: 12px 25px;
+            border-radius: 149px;
+
         }
     }
     @else if $type == 'networks'
