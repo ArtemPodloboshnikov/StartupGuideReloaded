@@ -7,6 +7,7 @@ import FilesUploader from '../../components/Inputs/FilesUploader/FilesUploader';
 import InputText from '../../components/Inputs/InputText/InputText';
 import NeomorhInput from '../../components/Inputs/NeomorhInput/NeomorhInput';
 import Select from '../../components/Inputs/Select/Select';
+import TitleUnderline from '../../components/Titles/TitleUnderline/TitleUnderline';
 import TextArea from '../../components/Inputs/TextArea/TextArea';
 import SimpleBtn from '../../components/Buttons/SimpleBtn/SimpleBtn';
 import colors from '../../constants/colors';
@@ -14,8 +15,9 @@ import constants from './constants';
 import Link from 'next/link'
 import inputsType from '../../constants/inputsType';
 
-const Profile: NextPage = () => {
+const Profile: NextPage<any> = ({props}) => {
 
+    console.log(props)
     const [fio, setFio] = useState('');
     const [phone, setPhone] = useState('');
     const [email, setEmail] = useState('');
@@ -64,7 +66,7 @@ const Profile: NextPage = () => {
 
                     let content: ReactNode[] = [];
 
-                    clientProfileList.map((prof, prof_index)=>{
+                    clientProfileList.map((prof)=>{
                         
                         const html_questions = prof.questions.map((question, question_index)=>{
               
@@ -113,10 +115,10 @@ const Profile: NextPage = () => {
             image={inputsType.file_uploader.IMAGE.images.PROFILE}
             />
             <div className={classes.personal_data}>
-                <div className={classes.title}>
-                    <div></div>
-                    <h3>{constants.personal_data.TITLE}</h3>
-                </div>
+                <TitleUnderline
+                color={colors.NIGHT_BLUE}
+                text={constants.personal_data.TITLE}
+                />
                 <InputText
                 placeholder={constants.personal_data.FIO.placeholder}
                 color={colors.DARK_BLUE}
@@ -166,10 +168,10 @@ const Profile: NextPage = () => {
                 />
             </div>
             <div className={classes.profile}>
-                <div className={classes.title}>
-                    <div></div>
-                    <h3>{constants.profile.TITLE}</h3>
-                </div>
+                <TitleUnderline
+                color={colors.NIGHT_BLUE}
+                text={constants.profile.TITLE}
+                />
                 <div>
                     <div>
                         {/* <Select
@@ -210,10 +212,10 @@ const Profile: NextPage = () => {
                 </div>
             </div>
             <div className={classes.networks}>
-                <div className={classes.title}>
-                    <div></div>
-                    <h3>{constants.networks.TITLE}</h3>
-                </div>
+                <TitleUnderline
+                color={colors.NIGHT_BLUE}
+                text={constants.networks.TITLE}
+                />
                 <div>
                     <NeomorhInput
                     name={constants.networks.TELEGRAM.name}
@@ -254,10 +256,31 @@ const Profile: NextPage = () => {
                 </div>
             </div>
             <div className={classes.forInvestors}>
-
+                <TitleUnderline
+                color={colors.WHITE}
+                text={constants.for_investors.TITLE}
+                />
             </div>
         </>
     )
 }
 
 export default Profile
+
+export async function getStaticProps() {
+
+    let data = {};
+    try
+    {
+        const res = await fetch('http://startup-service.mvpstudio.io/api/users')
+        data = await res.json()
+
+    }
+    catch(error)
+    {
+        console.log(error)
+    }
+    return {
+       props: data
+    }
+}

@@ -73,7 +73,7 @@
         display: grid;
         margin-top: 5%;
         width: 100%;
-        & > div:first-child
+        & > div > div:first-child
         {
             display: grid;
             height: fit-content;

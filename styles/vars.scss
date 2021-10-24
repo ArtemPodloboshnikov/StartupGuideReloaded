@@ -36,6 +36,16 @@ $hover_color: (
     justify-items: center;
     align-items: center;
 }
+%self_center
+{
+    justify-items: center;
+    align-items: center;
+}
+%content_center
+{
+    justify-content: center;
+    align-self: center;
+}
 @mixin wrap_btn($bg_color, $hover: 'off', $txt_color: map.get($contrast_color, $bg_color))
 {
     
@@ -57,6 +67,7 @@ $hover_color: (
     }
     *
     {
+        cursor: pointer;
         border: 0;
         outline: none;
         background: transparent;
@@ -82,28 +93,5 @@ $hover_color: (
         color: $bg_color !important;
         
         
-    }
-}
-@mixin title($color)
-{
-    & > .title
-    {
-        display: flex;
-        flex-direction: column;
-        height: fit-content;
-        & > div
-        {
-            width: 30px;
-            background-color: $color;
-            height: 5px;
-        }
-
-        & > h3
-        {
-            margin: 0;
-            padding: 0;
-            color: $color;
-        }
-      
     }
 }

@@ -8,14 +8,36 @@ const constants =
 
         profile: '/profile'
     },
-    TITLE_WINDOW: 'Регистрация',
+    TITLES_WINDOW: {
+
+        registration: 'Регистрация',
+        enter: 'Вход'
+    },
     BUTTON_WINDOW: {
         top: {
-            text: 'Войти',
-            name: 'enter'
+
+            enter: {
+                text: 'Войти',
+                name: 'enter',
+                index_page: 1
+            },
+            registration: {
+
+                text: 'Зарегистрироваться',
+                name: 'registration',
+                index_page: 0
+            }
         },
         bottom: {
-            text: 'Зарегистрироваться'
+            registration: {
+
+                text: 'Зарегистрироваться',
+            },
+            enter: {
+
+                text: 'Войти',
+                url: '/profile'
+            }
         }
     },
     WINDOW_CHECKBOX: {

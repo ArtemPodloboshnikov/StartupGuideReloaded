@@ -47,7 +47,7 @@ const HintInput = ({className, placeholder, name, type='text', color, hint, erro
             placeholder={placeholder}
             />
             )}
-            {(error)?<p style={(correctValue.test(value)?{display: 'none'} : {display: 'block'})} key={`${correctValue.test(value)}`}>{error}</p>:<></>}
+            {(error)?<p style={((correctValue.test(value)||!value)?{display: 'none'} : {display: 'block'})} key={`${correctValue.test(value)}`}>{error}</p>:<></>}
         </div>
     )
 

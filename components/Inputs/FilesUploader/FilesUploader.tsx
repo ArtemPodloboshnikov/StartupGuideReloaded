@@ -1,5 +1,6 @@
 import {useState, DragEvent} from 'react'
 import inputsType from '../../../constants/inputsType';
+import generateId from '../../../functions/generateId';
 import classes from './FilesUploader.module.scss';
 
 type Props = {
@@ -21,7 +22,7 @@ const FilesUploader = ({className, color, placeholder, name, idImage, type, imag
     const [countFiles, setCountFiles] = useState(0);
     const [styleImage, setStyleImage] = useState({});
     const inlineStyleAvatar = {width: '100%', borderRadius: '50%'};
-    const id_file_input = Math.random();
+    const id_file_input = generateId('input_file_uploader');
     const image_profile = <img 
                           style={styleImage}
                           src={`/icons/${image}_${color}.svg`} 

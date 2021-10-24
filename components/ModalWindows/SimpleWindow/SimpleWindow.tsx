@@ -11,7 +11,7 @@ type Props = {
     readonly setClose: Dispatch<SetStateAction<boolean>>
 }
 
-const SimpleWindow = ({className, children, close, setClose}:Props) =>{
+const SimpleWindow = ({className, children, close, setClose, onSubmit}:Props) =>{
 
     return (
     
@@ -23,7 +23,9 @@ const SimpleWindow = ({className, children, close, setClose}:Props) =>{
             <div className={classes.wrap_window}>
                 <div className={classes.window}>
                     <div className={classes.cross} onClick={()=>setClose(!close)}></div>
-                    <form className={classes.content}>
+                    <form 
+                    onSubmit={onSubmit}
+                    className={classes.content}>
                         {children}
                     </form>
                 </div>

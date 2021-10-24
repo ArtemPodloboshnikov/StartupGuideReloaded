@@ -12,10 +12,10 @@ type Props = {
     readonly value?: string,
     readonly placeholder?: string,
     readonly name: string,
-    readonly setValue?: Dispatch<SetStateAction<string>>,
+    readonly setValue?: any
     readonly children?: ReactNode
 }
-const NeomorhBtn = ({className, children, name, color, type, typeNetworks, value, setValue, style, placeholder}:Props)=>{
+const NeomorhInput = ({className, children, name, color, type, typeNetworks, value, setValue, style, placeholder}:Props)=>{
 
     return (
         <div className={`${classes[`wrap_${type}_${color}`]} ${className}`} style={style}>
@@ -30,7 +30,7 @@ const NeomorhBtn = ({className, children, name, color, type, typeNetworks, value
                             <input 
                             name={name}
                             value={value}
-                            onChange={(e)=>setValue(e.target.value)}
+                            onChange={setValue}
                             placeholder={placeholder}
                             />
                             <img src={typeNetworks}/>
@@ -41,7 +41,7 @@ const NeomorhBtn = ({className, children, name, color, type, typeNetworks, value
                 {
                     return (
 
-                        <button>{children}</button>
+                        <button onClick={()=>setValue()}>{children}</button>
                     )
                 }
 
@@ -50,4 +50,4 @@ const NeomorhBtn = ({className, children, name, color, type, typeNetworks, value
     )
 }
 
-export default NeomorhBtn;
+export default NeomorhInput;
