@@ -20,6 +20,8 @@ const FilesUploader = ({className, color, placeholder, name, idImage, type, imag
     const [drag, setDrag] = useState(false);
     const [countFiles, setCountFiles] = useState(0);
     const [styleImage, setStyleImage] = useState({});
+    const inlineStyleAvatar = {width: '100%', borderRadius: '50%'};
+    const id_file_input = Math.random();
     const image_profile = <img 
                           style={styleImage}
                           src={`/icons/${image}_${color}.svg`} 
@@ -74,7 +76,7 @@ const FilesUploader = ({className, color, placeholder, name, idImage, type, imag
             if (idImage !== undefined)
             {
                 previewFile(fileList, idImage)
-                setStyleImage({width: '100%', borderRadius: '50%'})
+                setStyleImage(inlineStyleAvatar)
             }
             setDrag(false);
             setCountFiles(files.length);
@@ -93,13 +95,13 @@ const FilesUploader = ({className, color, placeholder, name, idImage, type, imag
             if (idImage !== undefined)
             {
                 previewFile(fileList, idImage)
-                setStyleImage({width: '100%', borderRadius: '50%'})
+                setStyleImage(inlineStyleAvatar)
 
             }
             setCountFiles(fileList.length);
         }
     }
-    const id_file_input = Math.random();
+
     return (
         <div className={classes[`wrap_${type}_${color}`] + ' ' + className} style={style}>
             <input 
@@ -123,7 +125,9 @@ const FilesUploader = ({className, color, placeholder, name, idImage, type, imag
                     :
                     'Отпустите файлы, чтобы загрузить их'}</div>
                 :
-                <label htmlFor={`${id_file_input}`} className={classes.drop}
+                <label htmlFor={`${id_file_input}`} 
+                     className={classes.drop}
+                     style={(Object.keys(styleImage).length != 0)?{background: 'none'}:{}}
                      onDragStart={onDragStart}
                      onDragLeave={onDragLeave}
                      onDragOver={onDragStart}
