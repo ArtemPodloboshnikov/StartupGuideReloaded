@@ -1,6 +1,5 @@
 import classes from './Select.module.scss';
 import {Dispatch, SetStateAction, useState} from 'react';
-import binarySearch from '../../../functions/binarySearch';
 
 
 type OptionProps = {
@@ -13,13 +12,14 @@ type Props = {
 
     readonly values: {[key: string]: string[]},
     readonly value: string,
+    readonly name: string,
     readonly className?: string,
     readonly style?: {},
     readonly color: string,
-    readonly setValue: Dispatch<SetStateAction<string>>
+    readonly setValue: any
 
 }
-const Select = ({className, style, color, values, value, setValue}:Props) =>{
+const Select = ({className, name, style, color, values, value, setValue}:Props) =>{
 
     const [options, setOptions] = useState([]);
     const SelectOption = ({index, option, callBack}:OptionProps)=>{
@@ -32,7 +32,7 @@ const Select = ({className, style, color, values, value, setValue}:Props) =>{
 
                 if (callBack !== undefined)
                     callBack();
-                setValue(option);
+                setValue(name, option);
                 console.log(option)
                 setOptions([]);
 
@@ -48,7 +48,8 @@ const Select = ({className, style, color, values, value, setValue}:Props) =>{
 
         <div className={classes[`wrap_${color}`] + ' ' + className} style={style}>
             <div>
-                <input 
+                <input
+                name={name}
                 value={value} 
                 onBlur={()=>setTimeout(()=>setOptions([]), 200)}
                 onChange={(e)=>{
@@ -73,7 +74,7 @@ const Select = ({className, style, color, values, value, setValue}:Props) =>{
 
                     }
                     setOptions(buf_options);
-                    setValue(current_value);
+                    setValue(name, current_value);
                 }}/>
                 <img 
                 src='/icons/arrow.svg'

@@ -1,0 +1,18 @@
+@import '../../../styles/vars.scss';
+
+@mixin textarea($color) {
+    
+    width: 100%;
+    height: 100%;
+    border-left: 2px solid $color;
+    resize: none;
+}
+
+.wrap_dark_blue
+{
+    @include textarea($dark_blue);
+}
+.wrap_white
+{
+    @include textarea($white);
+}

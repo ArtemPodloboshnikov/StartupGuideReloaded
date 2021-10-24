@@ -9,14 +9,35 @@ type Props = {
     readonly name: string,
     readonly placeholder?: string,
     readonly type: string,
-    readonly image?: string
+    readonly image?: string,
+    readonly idImage?: string,
+    readonly style?: {}
 
 }
 
-const FilesUploader = ({className, color, placeholder, name, type, image}:Props) => {
-
+const FilesUploader = ({className, color, placeholder, name, idImage, type, image, style}:Props) => {
+    
     const [drag, setDrag] = useState(false);
     const [countFiles, setCountFiles] = useState(0);
+    const [styleImage, setStyleImage] = useState({});
+    const image_profile = <img 
+                          style={styleImage}
+                          src={`/icons/${image}_${color}.svg`} 
+                          id={idImage}/>
+    console.log(idImage)
+
+    function previewFile(file: FileList, id_img: string)
+    {
+        
+        let reader = new FileReader()
+        reader.onload = () => {
+            let img: any = document.getElementById(id_img)
+            img.src = reader.result
+        }
+    
+        reader.readAsDataURL(file[0])
+    }
+
     function FileListItems(files: FileList)
     {
         let b = new ClipboardEvent("").clipboardData || new DataTransfer()
@@ -27,12 +48,15 @@ const FilesUploader = ({className, color, placeholder, name, type, image}:Props)
         
         e.preventDefault();
         setDrag(true);
+        setStyleImage({})
+
 
     }
     const onDragLeave = (e: DragEvent<HTMLDivElement|HTMLLabelElement>) =>{
 
         e.preventDefault();
         setDrag(false);
+        setStyleImage({})
 
     }
     const onDrop = (e: DragEvent<HTMLDivElement|HTMLLabelElement>) =>{
@@ -40,13 +64,18 @@ const FilesUploader = ({className, color, placeholder, name, type, image}:Props)
         e.preventDefault();
         if (e.dataTransfer !== null)
         {
-
+          
             let files: FileList = e.dataTransfer.files;
             console.log(files);
             const fileInput = document.getElementsByName(name);
             const fileUploader = fileInput[0] as HTMLInputElement;
             let  fileList: FileList | null = fileUploader.files;
-            fileList = FileListItems(files);console.log(files.length)
+            fileList = FileListItems(files);
+            if (idImage !== undefined)
+            {
+                previewFile(fileList, idImage)
+                setStyleImage({width: '100%', borderRadius: '50%'})
+            }
             setDrag(false);
             setCountFiles(files.length);
         }
@@ -56,16 +85,28 @@ const FilesUploader = ({className, color, placeholder, name, type, image}:Props)
         const files = document.getElementsByName(name);
         const fileUploader = files[0] as HTMLInputElement;
         const fileList: FileList | null = fileUploader.files;
-        if (fileList !== null)
+       
+        if (fileList !== null && fileList.length != 0)
+        {
+            console.log(fileList);
+            console.log(idImage);
+            if (idImage !== undefined)
+            {
+                previewFile(fileList, idImage)
+                setStyleImage({width: '100%', borderRadius: '50%'})
+
+            }
             setCountFiles(fileList.length);
+        }
     }
-    const image_profile = <img src={`/icons/${image}_${color}.svg`}/>
+    const id_file_input = Math.random();
     return (
-        <div className={classes[`wrap_${type}_${color}`] + ' ' + className}>
+        <div className={classes[`wrap_${type}_${color}`] + ' ' + className} style={style}>
             <input 
             onChange={changeInputFile} 
             name={name} 
-            id={classes.file} 
+            className={classes.file}
+            id={`${id_file_input}`} 
             type='file' 
             multiple={true}
             />
@@ -82,7 +123,7 @@ const FilesUploader = ({className, color, placeholder, name, type, image}:Props)
                     :
                     'Отпустите файлы, чтобы загрузить их'}</div>
                 :
-                <label htmlFor={classes.file} className={classes.drop}
+                <label htmlFor={`${id_file_input}`} className={classes.drop}
                      onDragStart={onDragStart}
                      onDragLeave={onDragLeave}
                      onDragOver={onDragStart}

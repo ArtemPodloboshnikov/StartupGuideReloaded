@@ -7,6 +7,7 @@ type Props = {
     readonly color: string,
     readonly className?: string,
     readonly style?: {},
+    readonly name: string,
     readonly hint: string,
     readonly error: string,
     readonly important?: boolean,
@@ -15,11 +16,10 @@ type Props = {
     readonly value: string,
     readonly type?: string,
     readonly optionsText?: {[key: string]: string[]},
-    readonly optionsValue?: string[],
-    readonly setValue: Dispatch<SetStateAction<string>>
+    readonly setValue: any
 }
 
-const HintInput = ({className, placeholder, type='text', color, hint, error, important=false, correctValue, value, setValue, style, optionsText}:Props) =>{
+const HintInput = ({className, placeholder, name, type='text', color, hint, error, important=false, correctValue, value, setValue, style, optionsText}:Props) =>{
     
     
     
@@ -32,6 +32,7 @@ const HintInput = ({className, placeholder, type='text', color, hint, error, imp
             </div>
             {(type=='select' && optionsText !== undefined?
             <Select
+            name={name}
             values={optionsText}
             value={value}
             setValue={setValue}
@@ -39,9 +40,10 @@ const HintInput = ({className, placeholder, type='text', color, hint, error, imp
             />
             :
             <input 
+            name={name}
             type={type}
             value={value} 
-            onChange={(e)=>setValue(e.target.value)} 
+            onChange={setValue} 
             placeholder={placeholder}
             />
             )}

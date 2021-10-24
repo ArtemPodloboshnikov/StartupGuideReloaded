@@ -38,31 +38,50 @@ $hover_color: (
 }
 @mixin wrap_btn($bg_color, $hover: 'off', $txt_color: map.get($contrast_color, $bg_color))
 {
-    display: grid;
-    @extend %items_center;
+    
     background-color: $bg_color;
     cursor: pointer;
-    & *
+    font-family: 'IBM Plex Sans';
+    color: $txt_color;
+    user-select: none;
+    & img
     {
-        cursor: pointer;
-        font-family: 'IBM Plex Sans';
-        color: $txt_color;
-        outline: none;
-        border: none;
-        background-color: transparent;
+        max-width: 40%;
     }
-
+    & > div
+    {
+        display: grid;
+        justify-content: stretch;
+        align-content: stretch;
+        @extend %items_center;
+    }
+    *
+    {
+        border: 0;
+        outline: none;
+        background: transparent;
+        color: $txt_color;
+    }
     @if $hover == 'on'
     {
         &:hover
         {
             background-color: $txt_color;
 
-            & *
+            *
             {
-                color: $bg_color
+                color: $bg_color;
+
             }
+            
         }
+    }
+    .active_hover
+    {
+        background-color: $txt_color !important;
+        color: $bg_color !important;
+        
+        
     }
 }
 @mixin title($color)

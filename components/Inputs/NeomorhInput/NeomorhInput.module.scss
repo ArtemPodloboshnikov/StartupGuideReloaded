@@ -11,18 +11,18 @@ $input_text_color: (
     $dark_blue: $white
 );
 
-@mixin neomorh($type, $shadow, $color: '')
+@mixin neomorh($type, $shadow)
 {
     width: 100%;
     border-radius: 149px;
     height: fit-content;
     width: fit-content;
 
-    @if $shadow == 'dark_blue'
+    @if $shadow == $dark_blue
     {
         box-shadow: 0 -3px 10px #262e42, 0 10px 10px #171e2d;
     }
-    @else if $shadow == 'white'
+    @else if $shadow == $white
     {
         box-shadow: 0px -3px 10px #ffffff, 0px 10px 10px #e1e4f4;
     }
@@ -42,13 +42,13 @@ $input_text_color: (
         padding: 7px 25px;
         display: grid;
         grid-template-columns: 95% 5%;
-        background-color: $color;
+        background-color: $shadow;
         & > input
         {
             width: 100%;
-            background-color: map.get($input_color_bg, $color);
-            color: map.get($input_text_color, $color);
-            border: 1px solid $color;
+            background-color: map.get($input_color_bg, $shadow);
+            color: map.get($input_text_color, $shadow);
+            border: 1px solid $shadow;
             border-radius: 149px 0 0 149px;
             margin-top: -7px;
             margin-bottom: -7px;
@@ -74,19 +74,19 @@ $input_text_color: (
 .wrap_circle_btn_dark_blue
 {
     @include wrap_btn($dark_blue, 'on');
-    @include neomorh('circle_btn', 'dark_blue');
+    @include neomorh('circle_btn', $dark_blue);
 }
 .wrap_circle_btn_white
 {
     @include wrap_btn($grayish_white, 'on');
-    @include neomorh('circle_btn', 'white');
+    @include neomorh('circle_btn', $white);
 }
 
 .wrap_networks_dark_blue
 {
-    @include neomorh('networks', 'dark_blue', $dark_blue);
+    @include neomorh('networks', $dark_blue);
 }
 .wrap_networks_white
 {
-    @include neomorh('networks', 'white', $white);
+    @include neomorh('networks', $white);
 }

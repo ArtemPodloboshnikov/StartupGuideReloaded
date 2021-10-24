@@ -3,10 +3,10 @@
 %square
 {
     cursor: pointer;
-    padding: 23px 40px 22px;
 
     & *
     {
+        padding: 23px 40px 22px;
         font-size: 0.875em;
         line-height: 18px;
         letter-spacing: .02em;
@@ -18,17 +18,19 @@
 %circle
 {
     cursor: pointer;
-    padding: 9px 14px;
     border-radius: 15px;
     
     & *
     {
+        padding: 9px 14px;
+        border-radius: 15px;
         font-size: 10px;
         line-height: 13px;
         text-transform: uppercase;
         cursor: pointer;
         width: 100%;
     }
+    
 }
 .wrap_square_crimson
 {
@@ -48,5 +50,25 @@
 .wrap_circle_blue
 {
     @include wrap_btn($blue, 'on');
+    @extend %circle;
+}
+.wrap_circle_grayish_white
+{
+    @include wrap_btn($grayish_white, 'on');
+    @extend %circle;
+}
+.wrap_square_grayish_white
+{
+    @include wrap_btn($grayish_white, 'on');
+    @extend %circle;
+}
+.wrap_circle_white
+{
+    @include wrap_btn($white, 'on');
+    @extend %circle;
+}
+.wrap_square_white
+{
+    @include wrap_btn($white, 'on');
     @extend %circle;
 }

@@ -11,10 +11,11 @@ type Props = {
     readonly typeNetworks?: string,
     readonly value?: string,
     readonly placeholder?: string,
+    readonly name: string,
     readonly setValue?: Dispatch<SetStateAction<string>>,
     readonly children?: ReactNode
 }
-const NeomorhBtn = ({className, children, color, type, typeNetworks, value, setValue, style, placeholder}:Props)=>{
+const NeomorhBtn = ({className, children, name, color, type, typeNetworks, value, setValue, style, placeholder}:Props)=>{
 
     return (
         <div className={`${classes[`wrap_${type}_${color}`]} ${className}`} style={style}>
@@ -27,6 +28,7 @@ const NeomorhBtn = ({className, children, color, type, typeNetworks, value, setV
                     return (
                         <>
                             <input 
+                            name={name}
                             value={value}
                             onChange={(e)=>setValue(e.target.value)}
                             placeholder={placeholder}
