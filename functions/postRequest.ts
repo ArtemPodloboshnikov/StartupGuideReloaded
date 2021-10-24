@@ -11,7 +11,6 @@ async function postRequest(url: string, body: {[key: string]: string})
             body: JSON.stringify(body)
         })
         const json = await res.json();
-
         return json;
     }
     catch(error)

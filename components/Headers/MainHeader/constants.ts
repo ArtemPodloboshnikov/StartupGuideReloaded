@@ -68,14 +68,16 @@ const constants =
             hint: 'email',
             placeholder: 'address@service.com',
             error: 'Введена некорректная почта',
-            name: 'email',
+            name_register: 'email',
+            name_enter: 'email_for_enter',
             correct_value: /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-]+$/g
         },
         PASSWORD: {
             hint: 'пароль',
             placeholder: '*******',
             error: 'Не менее 8 символов',
-            name: 'password',
+            name_register: 'password',
+            name_enter: 'password_for_enter',
             correct_value: /(.+){8,}/g
         },
         DOUBLE_PASSWORD: {

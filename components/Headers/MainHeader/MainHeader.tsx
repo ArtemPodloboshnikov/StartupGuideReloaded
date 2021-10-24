@@ -1,6 +1,8 @@
 import type { NextPage } from 'next';
 import Link from 'next/link';
 import {NextRouter, useRouter} from 'next/router';
+import { useSetRecoilState } from 'recoil';
+import { clientData } from '../../../states/clientData';
 import { useFormik } from 'formik';
 import { useState, useMemo, useEffect } from 'react';
 import postRequest from '../../../functions/postRequest';
@@ -23,7 +25,8 @@ import generateId from '../../../functions/generateId';
 const MainHeader:NextPage = ()=>{
 
     const cities = useMemo(()=>dictionaryArray(russianCities.map((city)=>{return city.city})), [russianCities]);
-    
+    const router = useRouter();
+    const changeClientData = useSetRecoilState(clientData);
     const [close, setClose] = useState(true);
     const ids_pages_window = [generateId('register'), generateId('enter')];
     const [currentPage, setCurrentPage] = useState(0);
@@ -33,6 +36,8 @@ const MainHeader:NextPage = ()=>{
         phone: string,
         email: string,
         password: string,
+        email_for_enter: string,
+        password_for_enter: string,
         double_password: string,
         city: string,
         I_agree_window_checkbox: boolean,
@@ -44,25 +49,28 @@ const MainHeader:NextPage = ()=>{
             fio: '',
             phone: '',
             email: '',
-            password: '',
+            password: '',  
+            email_for_enter: '',
+            password_for_enter: '',
             double_password: '',
             city: '',
             I_agree_window_checkbox: false,
             telegram: ''
         },
-        onSubmit: ({fio, email, phone, password, double_password, city, I_agree_window_checkbox, telegram})=>{
+        onSubmit: ({fio, email, email_for_enter, phone, password, password_for_enter, double_password, city, I_agree_window_checkbox, telegram})=>{
+            console.log("Hello")
 
-            async function log_in(router: NextRouter)
+            async function log_in()
             {
-                const response = await postRequest(`${api.HOST}${api.POST.login.query}?${api.POST.login.parameters.EMAIL}=${email}&${api.POST.login.parameters.PASSWORD}=${password}`,
+                const response = await postRequest(`${api.HOST}${api.POST.login.query}?${api.POST.login.parameters.EMAIL}=${email_for_enter}&${api.POST.login.parameters.PASSWORD}=${password_for_enter}`,
                 {})
-                console.log(response)
+                changeClientData(response)
                 router.push(constants.BUTTON_WINDOW.bottom.enter.url)
             } 
-            const router = useRouter();
-            log_in(router);
-            // setClose(!close);
-            // router.push('/profile');
+            
+            if (currentPage == constants.BUTTON_WINDOW.top.enter.index_page)
+                log_in();
+            setClose(!close);
         }
     })
 
@@ -77,7 +85,7 @@ const MainHeader:NextPage = ()=>{
                     registration_data.values.double_password, 
                     registration_data.values.I_agree_window_checkbox];
     let correct: boolean = false;
-    console.log(inputs)
+    // console.log(inputs)
     for (let input of inputs)
     {
         if (!input)
@@ -92,7 +100,7 @@ const MainHeader:NextPage = ()=>{
     }
     
     useEffect(()=>{
-        console.log(`currentPage: ${currentPage}`)
+        console.log(ids_pages_window)
         ids_pages_window.map((page_id, index)=>{
 
             if (index == currentPage)
@@ -160,7 +168,7 @@ const MainHeader:NextPage = ()=>{
                         setValue={registration_data.handleChange}
                         />
                         <HintInput 
-                        name={constants.REGISTRATION_INPUTS.EMAIL.name}
+                        name={constants.REGISTRATION_INPUTS.EMAIL.name_register}
                         color={colors.WHITE}
                         hint={constants.REGISTRATION_INPUTS.EMAIL.hint}
                         error={constants.REGISTRATION_INPUTS.EMAIL.error}
@@ -171,7 +179,7 @@ const MainHeader:NextPage = ()=>{
                         setValue={registration_data.handleChange}
                         />
                         <HintInput 
-                        name={constants.REGISTRATION_INPUTS.PASSWORD.name}
+                        name={constants.REGISTRATION_INPUTS.PASSWORD.name_register}
                         color={colors.WHITE}
                         hint={constants.REGISTRATION_INPUTS.PASSWORD.hint}
                         error={constants.REGISTRATION_INPUTS.PASSWORD.error}
@@ -254,7 +262,7 @@ const MainHeader:NextPage = ()=>{
                         <input type='submit' value={constants.BUTTON_WINDOW.bottom.registration.text}/>    
                     </SimpleBtn>
                 </div>
-                <div id={ids_pages_window[constants.BUTTON_WINDOW.top.enter.index_page]}>
+                <div id={ids_pages_window[constants.BUTTON_WINDOW.top.enter.index_page]} style={{display: 'none'}}>
                     <div>
                         <p>{constants.TITLES_WINDOW.enter}</p>
                         <NeomorhInput
@@ -271,18 +279,18 @@ const MainHeader:NextPage = ()=>{
                     </div>
                     <div className={classes.list}>
                         <HintInput 
-                        name={constants.REGISTRATION_INPUTS.EMAIL.name}
+                        name={constants.REGISTRATION_INPUTS.EMAIL.name_enter}
                         color={colors.WHITE}
                         hint={constants.REGISTRATION_INPUTS.EMAIL.hint}
                         error={constants.REGISTRATION_INPUTS.EMAIL.error}
                         placeholder={constants.REGISTRATION_INPUTS.EMAIL.placeholder}
                         correctValue={constants.REGISTRATION_INPUTS.EMAIL.correct_value}
                         important={true}
-                        value={registration_data.values.email}
+                        value={registration_data.values.email_for_enter}
                         setValue={registration_data.handleChange}
                         />
                         <HintInput 
-                        name={constants.REGISTRATION_INPUTS.PASSWORD.name}
+                        name={constants.REGISTRATION_INPUTS.PASSWORD.name_enter}
                         color={colors.WHITE}
                         hint={constants.REGISTRATION_INPUTS.PASSWORD.hint}
                         error={constants.REGISTRATION_INPUTS.PASSWORD.error}
@@ -290,7 +298,7 @@ const MainHeader:NextPage = ()=>{
                         correctValue={constants.REGISTRATION_INPUTS.PASSWORD.correct_value}
                         important={true}
                         type={inputsType.inputs.PASSWORD}
-                        value={registration_data.values.password}
+                        value={registration_data.values.password_for_enter}
                         setValue={registration_data.handleChange}
                         />
                     </div>

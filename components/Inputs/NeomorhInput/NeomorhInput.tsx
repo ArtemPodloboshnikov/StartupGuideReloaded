@@ -41,7 +41,7 @@ const NeomorhInput = ({className, children, name, color, type, typeNetworks, val
                 {
                     return (
 
-                        <button onClick={()=>setValue()}>{children}</button>
+                        <button type='button' onClick={()=>setValue()}>{children}</button>
                     )
                 }
 

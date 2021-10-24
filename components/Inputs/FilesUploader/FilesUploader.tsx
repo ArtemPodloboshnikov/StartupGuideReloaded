@@ -27,7 +27,7 @@ const FilesUploader = ({className, color, placeholder, name, idImage, type, imag
                           style={styleImage}
                           src={`/icons/${image}_${color}.svg`} 
                           id={idImage}/>
-    console.log(idImage)
+
 
     function previewFile(file: FileList, id_img: string)
     {

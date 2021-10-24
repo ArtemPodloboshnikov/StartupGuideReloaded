@@ -1,5 +1,7 @@
 import type { NextPage } from 'next';
 import {useFormik} from 'formik';
+import { useRecoilValue } from 'recoil';
+import { clientData } from '../../states/clientData';
 import {useState, useMemo, ReactNode} from 'react';
 import QuestionnaireWindow from '../../components/ModalWindows/QuestionnaireWindow/QuestionnaireWindow';
 import classes from './index.module.scss';
@@ -18,10 +20,12 @@ import inputsType from '../../constants/inputsType';
 const Profile: NextPage<any> = ({props}) => {
 
     console.log(props)
-    const [fio, setFio] = useState('');
-    const [phone, setPhone] = useState('');
-    const [email, setEmail] = useState('');
-    const [city, setCity] = useState('');
+    const data_user = useRecoilValue(clientData || '');
+    console.log(data_user)
+    const [fio, setFio] = useState(data_user.user.name || '');
+    const [phone, setPhone] = useState(data_user.user.phone || '');
+    const [email, setEmail] = useState(data_user.user.email || '');
+    const [city, setCity] = useState(data_user.user.city || '');
 
     // const [profile, setProfile] = useState(Object.keys(constants.profile.PROFILE_OPTIONS)[0]);
     // const profiles_list = useMemo(()=>
