@@ -104,7 +104,15 @@ const constants =
             name: 'telegram'
         }
     },
-    DISABLE_TEXT_WINDOW: 'Не все поля заполнены!'
+    DISABLE_TEXT_WINDOW: 'Не все поля заполнены!',
+    SERVER_MESSAGES: {
+
+        SUCCESS_REGISTRATION: 'User successfully registered',
+    },
+    ERRORS_MESSAGE: {
+
+        FAILED_REGISTRATION: 'Такой пользователь уже существует'
+    }
 }
 
 export default constants;

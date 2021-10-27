@@ -64,13 +64,53 @@ const MainHeader:NextPage = ()=>{
             {
                 const response = await postRequest(`${api.HOST}${api.POST.login.query}?${api.POST.login.parameters.EMAIL}=${email_for_enter}&${api.POST.login.parameters.PASSWORD}=${password_for_enter}`,
                 {})
-                changeClientData(response)
+                changeClientData(response);
+                setClose(!close);
                 router.push(constants.BUTTON_WINDOW.bottom.enter.url)
+            } 
+            async function registration()
+            {
+                const response = await postRequest(`${api.HOST}${api.POST.register.query}?${api.POST.register.parameters.NAME}=${fio}&${api.POST.register.parameters.EMAIL}=${email}&${api.POST.register.parameters.PASSWORD}=${password}&${api.POST.register.parameters.C_PASSWORD}=${double_password}`,
+                {})
+                console.log(response)
+                const default_state = {
+
+                    access_token: '',
+                    token_type: '',
+                    expires_in: 0,
+                    user: {
+                        id: 0,
+                        name: '',
+                        email: '',
+                        email_verified_at: null,
+                        api_token: null,
+                        created_at: '',
+                        updated_at: '',
+                        fio: null,
+                        city: null,
+                        occupation: null,
+                        combinedwork: null,
+                        startup_main_source_of_income: null,
+                        had_negative_experience: null,
+                        phone: null
+                    }
+                }
+                if (response.message == constants.SERVER_MESSAGES.SUCCESS_REGISTRATION)
+                {
+                    const data = {...default_state, email: String(response.user.email), id: Number(response.user.id), name: String(response.user.name)};
+                    changeClientData(data)
+                    setCurrentPage(constants.BUTTON_WINDOW.top.enter.index_page);
+                }
+                else
+                {
+                    alert(constants.ERRORS_MESSAGE.FAILED_REGISTRATION);
+                }
             } 
             
             if (currentPage == constants.BUTTON_WINDOW.top.enter.index_page)
                 log_in();
-            setClose(!close);
+            if (currentPage == constants.BUTTON_WINDOW.top.registration.index_page)
+                registration();
         }
     })
 

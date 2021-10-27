@@ -1,8 +1,10 @@
+const prefix = '/api/auth/';
+
 const api = {
 
     HOST: 'http://startup-service.mvpstudio.io',
     GET: {
-        getUsers: {
+        get_users: {
             
             query: '/api/users'
         }
@@ -11,11 +13,22 @@ const api = {
 
         login: {
 
-            query: '/api/auth/login',
+            query: `${prefix}login`,
             parameters: {
 
                 EMAIL: 'email',
                 PASSWORD: 'password'
+            }
+        },
+        register: {
+
+            query: `${prefix}register`,
+            parameters: {
+
+                EMAIL: 'email',
+                PASSWORD: 'password',
+                NAME: 'name',
+                C_PASSWORD: 'c_password'
             }
         }
     }
