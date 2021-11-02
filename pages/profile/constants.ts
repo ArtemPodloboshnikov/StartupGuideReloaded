@@ -37,6 +37,18 @@ const constants = {
         },
         SAVE_BTN: 'Сохранить данные'
     },
+    WINDOW_STEPS: {
+        profile_about: 'profile_about', 
+        problems: 'problems', 
+        solving: 'solving'
+    },
+    problems: {
+        
+        TITLE: 'Обычно проблемы бывают следующими',
+        BUTTONS_TEXT: {
+            ['Рыночные ниши']: ['не понимаю, как получить доход', 'не умею исследовать потребителей', 'Нет стратегии', 'что делать с идеей, каков мой путь', 'моей проблемы тут нет']
+        }
+    },
     profile: {
         TITLE: 'Профиль',
         QUESTION_ICON: `${iconsFolder}question_circle.svg`,
@@ -44,6 +56,7 @@ const constants = {
 
             TEXTAREA: 'textarea',
             NUMBER: 'number',
+            SELECT: 'select',
             CHECKBOX: 'checkbox',
             RADIO: 'radio'
         },
@@ -111,9 +124,41 @@ const constants = {
             },
             [startup]: {
                 description: 'Стартап — это вновь созданная организация, которая занимается разработкой новых товаров или услуг в условиях чрезвычайной неопределенности.',
-                questions: ['Почему вы решили создавать эту компанию?', 'Почему люди хотят именно это, а не любой другой продукт?'],
-                typeFields: ['textarea', 'textarea'],
-                placeholders: ['Введите сюда ответ', 'Введите сюда ответ']
+                questions: [{'Комерческое наименование': {
+
+                    typeField: 'textarea',
+                    placeholder: 'Введите сюда ответ'
+
+                }}, 
+                {['Описание']: {
+
+                    typeField: 'textarea',
+                    placeholder: 'Введите сюда ответ'
+
+                }}, 
+                {['Рыночные ниши']: {
+
+                    typeField: 'select',
+                    placeholder: 'Выберите категорию',
+                    options: ["AR\/VR","Auto Tech","Beauty & grooming","BI & Analytics","Big Data","BioTech","Blockchain","Business Intelligence, Analytics &","Business Software","CleanTech","Clothing & Accessories","Cloud Computing","Collaboration & Project Management","Computer Hardware & Services","Construction Tech","Consumer Electronics","Consumer Hardware","Consumer Products & Services","Cybersecurity","Data Storage","DevOps","Digital Health","Digital Media","Drug Development","E-commerce","EdTech","Energy & Utilities","Entertainment","ESport","Facilities","FashionTech","FinTech","Fitness","FoodTech","Gaming","Genomics","Hardware","Healthcare","HRTech","Industrial Tech","InsuranceTech","Internet Software & Services","IoT","LegalTech","Logistics","Management & Strategy Consulting","Marketplace","Media","MedTech","Mobile Software & Services","Music","New Energy","Performance Mgmt","PropTech","Real Estate Tech","RegTech","Restaurant Tech","RetailTech","Robotics","SafetyTech","Scientific, Engineering Software","Social","SpaceTech","SportTech","Supply chain & Logistics","Telecom","Transport & Logistics","TravelMedia & Communication","TravelTech"]
+
+                }}, 
+                {['Технологии']: {
+
+                    typeField: 'select',
+                    placeholder: 'Выберите категорию',
+                    options: ["Блокчейн", "Аддитивные технологии", "Новые материалы", "BigData", "Искусственный интеллект и машинное обучение", "Компьютерное зрение", "Робототехника", "AR/VR", "Интернет вещей", "Нейротехнологии", "Новые и портативные источники энергии", "Зеленые технологии", "Нанотехнологии", "Биотехнологии", "Биометрия", "3D моделирование", "Беспилотники", "Cloud Computing", "New Energy", "New Materials", "Neural Network", "5G", "Robotics"]
+
+                }}, 
+                {['Бизнес-модель']: {
+
+                    typeField: 'select',
+                    placeholder: 'Выберите категорию',
+                    options: ["B2B", "B2B2C", "B2C", "B2G", "P2P", "C2C (Consumer to Consumer, “потребитель потребителю”) или P2P (person-to-person, “человек человеку”)", "C2B (Consumer to Business, или “потребитель — бизнесу”)", "C2G (Consumer to Government, или “потребитель — правительству”)"]
+
+                }}],
+                // typeFields: ['textarea', 'textarea', 'select', 'select', 'select'],
+                // placeholders: ['Введите сюда ответ', 'Введите сюда ответ', 'Выберите категорию', 'Выберите категорию', 'Выберите категорию']
             },
             [social_startup_event]: {
                 description: 'Это проект, который в одинаковой мере озабочен вопросами роста, прибыльности и общественного блага. Цель — разработка, финансирование и/или внедрение решений социокультурных или экологических проблем.',

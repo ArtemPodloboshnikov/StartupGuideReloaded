@@ -66,6 +66,14 @@ $title_color: (
     }
 
 }
+.select_underline_none
+{
+    * input
+    {
+
+        border-bottom: none;
+    }
+}
 .wrap_white
 {
     @include hint($grayish_white);

@@ -12,6 +12,7 @@ type Props = {
 
     readonly values: {[key: string]: string[]},
     readonly value: string,
+    readonly placeholder?: string,
     readonly name: string,
     readonly className?: string,
     readonly style?: {},
@@ -19,7 +20,7 @@ type Props = {
     readonly setValue: any
 
 }
-const Select = ({className, name, style, color, values, value, setValue}:Props) =>{
+const Select = ({className, name, style, color, values, value, setValue, placeholder}:Props) =>{
 
     const [options, setOptions] = useState([]);
     const SelectOption = ({index, option, callBack}:OptionProps)=>{
@@ -49,6 +50,7 @@ const Select = ({className, name, style, color, values, value, setValue}:Props) 
         <div className={classes[`wrap_${color}`] + ' ' + className} style={style}>
             <div>
                 <input
+                placeholder={placeholder}
                 name={name}
                 value={value} 
                 onBlur={()=>setTimeout(()=>setOptions([]), 200)}

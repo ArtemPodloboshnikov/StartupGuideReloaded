@@ -48,9 +48,20 @@ const QuestionnaireWindow = ({close, setClose, children, titles, onSubmit, class
             >
                 <div className={classes.titles}>
                     {(()=>{
-    
-                        return titles.map((title)=>{
-    
+                       
+                        if (/<[a-z/][\s\S]*>/i.test(titles[0]))
+                        {
+                            return <div
+                                   style={{gridColumn: '1 / 5'}}
+                                   dangerouslySetInnerHTML={{__html: titles[0]}}
+                                   />;
+                        }
+                        else
+                        {
+
+                        }
+                        return titles.map((title: string)=>{
+                    
                             return <SimpleBtn
                                     active={title==first_title}
                                     text={title}
@@ -64,6 +75,7 @@ const QuestionnaireWindow = ({close, setClose, children, titles, onSubmit, class
                                     color={colors.WHITE}
                                     />
                         })
+                        
     
                     })()}
                 </div>

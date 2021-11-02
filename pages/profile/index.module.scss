@@ -112,3 +112,29 @@
         @extend %content_center;
     }
 }
+.titles_side
+{
+    display: grid;
+    grid-auto-flow: row;
+    grid-column: 1 / 5;
+
+    & > h3
+    {
+        color: $grayish;
+    }
+    & > h2
+    {
+        color: $night_blue;
+    }
+}
+.select_options
+{
+    div:last-child
+    {
+        margin-top: 4%;
+    }
+}
+.textarea
+{
+    justify-self: stretch !important;
+}

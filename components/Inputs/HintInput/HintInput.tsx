@@ -32,6 +32,7 @@ const HintInput = ({className, placeholder, name, type='text', color, hint, erro
             </div>
             {(type=='select' && optionsText !== undefined?
             <Select
+            className={classes.select_underline_none}
             name={name}
             values={optionsText}
             value={value}

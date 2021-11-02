@@ -15,10 +15,10 @@ type Props = {
 const TextArea = ({className, color, placeholder, name, value, setValue}:Props) =>{
 
     return (
-        <div>
+        <div className={className}>
             <textarea
             name={name}
-            className={classes[`wrap_${color}`] + ' ' + className}
+            className={classes[`wrap_${color}`]}
             value={value}
             placeholder={placeholder}
             onChange={setValue}

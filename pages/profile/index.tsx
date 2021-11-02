@@ -16,6 +16,7 @@ import colors from '../../constants/colors';
 import constants from './constants';
 import Link from 'next/link'
 import inputsType from '../../constants/inputsType';
+import dictionaryArray from '../../functions/dictionaryArray';
 
 const Profile: NextPage<any> = ({props}) => {
 
@@ -27,20 +28,44 @@ const Profile: NextPage<any> = ({props}) => {
     const [email, setEmail] = useState(data_user.user.email || '');
     const [city, setCity] = useState(data_user.user.city || '');
 
-    // const [profile, setProfile] = useState(Object.keys(constants.profile.PROFILE_OPTIONS)[0]);
-    // const profiles_list = useMemo(()=>
-    //     dictionaryArray(Object.keys(constants.profile.PROFILE_OPTIONS)), 
-    //     [constants.profile.PROFILE_OPTIONS]
+    // const market_types = useMemo(()=>
+    //     dictionaryArray(Object.keys(constants.profile.MARKET_NICHES)), 
+    //     [constants.profile.MARKET_NICHES]
     // )
 
     const [telegram, setTelegram] = useState('');
     const [instagram, setInstagram] = useState('');
     const [facebook, setFacebook] = useState('');
     const [vk, setVk] = useState('');
+
+    const [profileWindowStep, setProfileWindowStep] = useState(constants.WINDOW_STEPS.profile_about);
     const profiles = Object.keys(constants.profile.PROFILE_OPTIONS);
     const [profilesListActive, setProfilesListActive] = useState(profiles.map(prof=>{return !prof}));
     const [questionnaireWindow, setQuestionnaireWindow] = useState(true);
-    const [clientProfileList, setClientProfileList] = useState([{name: '', descrition: '', questions: [''], typeFields: [''], placeholders: ['']}]);
+    const [clientProfileList, setClientProfileList] = useState([{name: '', descrition: '', questions: [{['']: {}}], typeFields: [''], placeholders: ['']}]);
+    const [param, setParam] = useState({problem: '', solving: ''});
+    const windowTitle = ()=>{
+
+        switch (profileWindowStep)
+        {
+            case constants.WINDOW_STEPS.profile_about:
+            {
+                return clientProfileList.map((list)=>{return list.name});
+            }
+            case constants.WINDOW_STEPS.problems:
+            {
+                return [`
+
+                    <div class=${classes.titles_side}>
+                        <h3>${param.problem}</h3>
+                        <h2>${constants.problems.TITLE}</h2>
+                    </div>
+                `]
+            }
+        }
+
+        return [''];
+    }
     const answersProfile = useFormik<{
 
        [key: string]: string
@@ -60,7 +85,7 @@ const Profile: NextPage<any> = ({props}) => {
     return (
         <>
             <QuestionnaireWindow
-            titles={clientProfileList.map((list)=>{return list.name})}
+            titles={windowTitle()}
             onSubmit={answersProfile.handleSubmit}
             close={questionnaireWindow}
             setClose={setQuestionnaireWindow}
@@ -69,43 +94,110 @@ const Profile: NextPage<any> = ({props}) => {
                 {(()=>{
 
                     let content: ReactNode[] = [];
+                    switch (profileWindowStep)
+                    {
+                        case constants.WINDOW_STEPS.profile_about:
+                        {
 
-                    clientProfileList.map((prof)=>{
-                        
-                        const html_questions = prof.questions.map((question, question_index)=>{
-              
-                            return (
-                                <div id={`${prof.name}_${question_index}`}>
-                                    <h3>{question_index+1}</h3>
-                                    <div>
-                                        {question}
-                                    </div>
-                                    {(()=>{
-                                        let input: ReactNode;
-                                        
-                                        switch(prof.typeFields[question_index])
-                                        {
-                                            case constants.profile.TYPE_FIELDS.TEXTAREA:
-                                            {
-                                                input = <TextArea
-                                                name={`${prof.name}_${question}`}
-                                                placeholder={prof.placeholders[question_index]}
-                                                color={colors.DARK_BLUE}
-                                                value={answersProfile.values[`${prof.name}_${question}`]}
-                                                setValue={answersProfile.handleChange}
+                            clientProfileList.map((prof)=>{
+                                
+                                const html_questions = Object.values(prof.questions).map((questions, question_index)=>{
+                                    // console.log(questions)
+                                    return Object.keys(questions).map((question)=>{
+        
+                                        console.log(question_index)
+                                        return (
+                                            <div id={`${prof.name}_${question_index}`}>
+                                                <h3>{question_index+1}</h3>
+                                                <div>
+                                                    {question}
+                                                    <img 
+                                                    onClick={()=>{
+
+                                                        setParam({problem: question, solving: ''});
+                                                        setProfileWindowStep(constants.WINDOW_STEPS.problems);
+                                                    }}
+                                                    src={constants.profile.QUESTION_ICON}
+                                                    />
+                                                </div>
+                                                {(()=>{
+                                                    let input: ReactNode;
+                                                    // @ts-ignore
+                                                    switch(questions[question].typeField)
+                                                    {
+                                                        case constants.profile.TYPE_FIELDS.TEXTAREA:
+                                                        {
+                                                            input = <TextArea
+                                                            name={`${prof.name}_${question}`}
+                                                            className={classes.textarea}
+                                                            //@ts-ignore
+                                                            placeholder={questions[question].placeholder}
+                                                            color={colors.DARK_BLUE}
+                                                            value={answersProfile.values[`${prof.name}_${question}`]}
+                                                            setValue={answersProfile.handleChange}
+                                                            />
+                                                            break;
+                                                        }
+                                                        case constants.profile.TYPE_FIELDS.SELECT:
+                                                        {
+                                                            //@ts-ignore
+                                                            const options =  dictionaryArray(questions[question].options)
+                                                            input = <Select
+                                                            className={classes.select_options}
+                                                            name={`${prof.name}_${question}`}
+                                                            //@ts-ignore
+                                                            placeholder={questions[question].placeholder}
+                                                            color={colors.DARK_BLUE}
+                                                            value={answersProfile.values[`${prof.name}_${question}`]}
+                                                            setValue={answersProfile.setFieldValue}
+                                                            values={options}
+                                                            />    
+                                                            break;
+        
+                                                        }
+                                                    }
+                                                    return input;
+            
+                                                })()}
+                                            </div>
+                                        )
+                                    })
+        
+                                })
+                                content.push(html_questions);
+                            })
+                            break;
+                        }
+                        case constants.WINDOW_STEPS.problems:
+                        {
+                            // console.log(constants.problems.BUTTONS_TEXT[param.problem])
+                            content.push(
+                            <div
+                            id={'Стартап_0'} 
+                            style={{display: 'grid', gridAutoFlow: 'row'}}
+                            >
+                                {(()=>{
+                                    //@ts-ignore
+                                    return constants.problems.BUTTONS_TEXT[param.problem].map((text)=>{
+
+                                        return <SimpleBtn
+                                               type={inputsType.buttons.CIRCLE}
+                                               color={colors.WHITE}
+                                               text={text}
+                                               setValue={()=>{
+
+
+                                               }}
                                                 />
-                                                break;
-                                            }
-                                        }
-                                        return input;
 
-                                    })()}
-                                </div>
+                                    })
+
+                                })()}
+                            </div>
                             )
-
-                        })
-                        content.push(html_questions);
-                    })
+                            break;
+                        }
+                    }
                     return content;
                 })()}
              
@@ -178,13 +270,6 @@ const Profile: NextPage<any> = ({props}) => {
                 />
                 <div>
                     <div>
-                        {/* <Select
-                        color={colors.DARK_BLUE}
-                        value={profile}
-                        setValue={setProfile}
-                        values={profiles_list}
-                        />
-                        <span>{constants.profile.PROFILE_OPTIONS[profile]}</span> */}
                         {(()=>{
 
                             let buttons: ReactNode[] = [];
