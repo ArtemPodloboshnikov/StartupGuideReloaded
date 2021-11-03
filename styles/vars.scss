@@ -21,7 +21,8 @@ $contrast_color: (
     $blue: $white,
     $white: $grayish_blue,
     $grayish_white: $blue,
-    $dark_blue: $grayish_white
+    $dark_blue: $grayish_white,
+    $night_blue: $white
 
 );
 
@@ -54,6 +55,8 @@ $hover_color: (
     font-family: 'IBM Plex Sans';
     color: $txt_color;
     user-select: none;
+    height: fit-content; 
+
     & img
     {
         max-width: 40%;

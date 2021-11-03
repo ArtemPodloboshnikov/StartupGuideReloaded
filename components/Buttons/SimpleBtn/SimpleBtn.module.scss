@@ -74,3 +74,23 @@
     @include wrap_btn($white, 'on');
     @extend %circle;
 }
+.wrap_circle_dark_blue
+{
+    @include wrap_btn($dark_blue, 'on');
+    @extend %circle;
+}
+.wrap_square_dark_blue
+{
+    @include wrap_btn($dark_blue, 'on');
+    @extend %circle;
+}
+.wrap_circle_night_blue
+{
+    @include wrap_btn($night_blue, 'on');
+    @extend %circle;
+}
+.wrap_square_night_blue
+{
+    @include wrap_btn($night_blue, 'on');
+    @extend %circle;
+}

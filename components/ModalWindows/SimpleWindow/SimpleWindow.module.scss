@@ -68,6 +68,11 @@
             transform: rotate(-45deg);
         }
     }
+    .arrow
+    {
+        justify-self: end;
+        cursor: pointer;
+    }
     .content
     {
         display: grid;

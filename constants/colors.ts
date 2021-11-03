@@ -6,7 +6,8 @@ const colors = {
     DARK_BLUE: 'dark_blue',
     GRAYISH_BLUE: 'grayish_blue',
     GRAYISH_WHITE: 'grayish_white',
-    NIGHT_BLUE: 'night_blue'
+    NIGHT_BLUE: 'night_blue',
+    GRAYISH: 'grayish'
 }
 
 export default colors;

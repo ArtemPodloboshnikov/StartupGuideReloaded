@@ -1,71 +1,51 @@
 import type { NextPage } from 'next';
-import {useFormik} from 'formik';
-import { useRecoilValue } from 'recoil';
+import { useRouter } from 'next/router';
+import { useFormik} from 'formik';
+import { useRecoilState } from 'recoil';
 import { clientData } from '../../states/clientData';
-import {useState, useMemo, ReactNode} from 'react';
-import QuestionnaireWindow from '../../components/ModalWindows/QuestionnaireWindow/QuestionnaireWindow';
+import {useState, useEffect, ReactNode} from 'react';
 import classes from './index.module.scss';
 import FilesUploader from '../../components/Inputs/FilesUploader/FilesUploader';
 import InputText from '../../components/Inputs/InputText/InputText';
 import NeomorhInput from '../../components/Inputs/NeomorhInput/NeomorhInput';
 import Select from '../../components/Inputs/Select/Select';
 import TitleUnderline from '../../components/Titles/TitleUnderline/TitleUnderline';
-import TextArea from '../../components/Inputs/TextArea/TextArea';
 import SimpleBtn from '../../components/Buttons/SimpleBtn/SimpleBtn';
 import colors from '../../constants/colors';
 import constants from './constants';
-import Link from 'next/link'
 import inputsType from '../../constants/inputsType';
-import dictionaryArray from '../../functions/dictionaryArray';
+import ProfileWindows from '../../components/Common/ProfileWindows/ProfileWindows';
 
 const Profile: NextPage<any> = ({props}) => {
 
     console.log(props)
-    const data_user = useRecoilValue(clientData || '');
+    const router = useRouter();
+    const [data_user, setDataUser] = useRecoilState(clientData);
     console.log(data_user)
     const [fio, setFio] = useState(data_user.user.name || '');
     const [phone, setPhone] = useState(data_user.user.phone || '');
     const [email, setEmail] = useState(data_user.user.email || '');
     const [city, setCity] = useState(data_user.user.city || '');
-
-    // const market_types = useMemo(()=>
-    //     dictionaryArray(Object.keys(constants.profile.MARKET_NICHES)), 
-    //     [constants.profile.MARKET_NICHES]
-    // )
+    
 
     const [telegram, setTelegram] = useState('');
     const [instagram, setInstagram] = useState('');
     const [facebook, setFacebook] = useState('');
     const [vk, setVk] = useState('');
 
-    const [profileWindowStep, setProfileWindowStep] = useState(constants.WINDOW_STEPS.profile_about);
     const profiles = Object.keys(constants.profile.PROFILE_OPTIONS);
     const [profilesListActive, setProfilesListActive] = useState(profiles.map(prof=>{return !prof}));
     const [questionnaireWindow, setQuestionnaireWindow] = useState(true);
-    const [clientProfileList, setClientProfileList] = useState([{name: '', descrition: '', questions: [{['']: {}}], typeFields: [''], placeholders: ['']}]);
-    const [param, setParam] = useState({problem: '', solving: ''});
-    const windowTitle = ()=>{
-
-        switch (profileWindowStep)
-        {
-            case constants.WINDOW_STEPS.profile_about:
-            {
-                return clientProfileList.map((list)=>{return list.name});
-            }
-            case constants.WINDOW_STEPS.problems:
-            {
-                return [`
-
-                    <div class=${classes.titles_side}>
-                        <h3>${param.problem}</h3>
-                        <h2>${constants.problems.TITLE}</h2>
-                    </div>
-                `]
-            }
-        }
-
-        return [''];
-    }
+    const [clientProfileList, setClientProfileList] = useState<[{
+        name: string, 
+        description: string,
+        questions: [{[key: string]: {
+            typeField: string,
+            placeholder: string,
+            options?: string[]
+        }}],
+        }]>([{name: '', description: '', questions: [{['']: {typeField: '', placeholder: ''}}]}]);
+    
     const answersProfile = useFormik<{
 
        [key: string]: string
@@ -73,7 +53,8 @@ const Profile: NextPage<any> = ({props}) => {
     }>({
         initialValues: {
 
-           
+           [constants.solving.RADIO_BUTTONS.name]: constants.solving.RADIO_BUTTONS.text[0],
+           [constants.assistants.RADIO_BUTTONS.name]: constants.assistants.RADIO_BUTTONS.text[0]
         },
         onSubmit: (values)=>{
 
@@ -82,126 +63,47 @@ const Profile: NextPage<any> = ({props}) => {
     })
 
     console.log(answersProfile.values)
+
+    useEffect(()=>{
+
+        if (data_user.access_token != '')
+        {
+            localStorage.setItem('data_user', JSON.stringify(data_user))
+        }
+        else
+        if (data_user.access_token == '')
+        {
+            if (typeof window !== 'undefined')
+            {
+                const local_storage_data = JSON.parse(localStorage.getItem('data_user') as string);
+                if (local_storage_data.access_token != '')
+                {
+                    setDataUser(local_storage_data);
+                    setFio(local_storage_data.user.name);
+                    setPhone(local_storage_data.user.phone);
+                    setEmail(local_storage_data.user.email);
+                    setCity(local_storage_data.user.city);
+                }
+                else
+                {
+                    router.push('/')
+                }
+                
+            }
+        }
+    })
     return (
         <>
-            <QuestionnaireWindow
-            titles={windowTitle()}
-            onSubmit={answersProfile.handleSubmit}
-            close={questionnaireWindow}
-            setClose={setQuestionnaireWindow}
-            >
+           
               
-                {(()=>{
-
-                    let content: ReactNode[] = [];
-                    switch (profileWindowStep)
-                    {
-                        case constants.WINDOW_STEPS.profile_about:
-                        {
-
-                            clientProfileList.map((prof)=>{
-                                
-                                const html_questions = Object.values(prof.questions).map((questions, question_index)=>{
-                                    // console.log(questions)
-                                    return Object.keys(questions).map((question)=>{
-        
-                                        console.log(question_index)
-                                        return (
-                                            <div id={`${prof.name}_${question_index}`}>
-                                                <h3>{question_index+1}</h3>
-                                                <div>
-                                                    {question}
-                                                    <img 
-                                                    onClick={()=>{
-
-                                                        setParam({problem: question, solving: ''});
-                                                        setProfileWindowStep(constants.WINDOW_STEPS.problems);
-                                                    }}
-                                                    src={constants.profile.QUESTION_ICON}
-                                                    />
-                                                </div>
-                                                {(()=>{
-                                                    let input: ReactNode;
-                                                    // @ts-ignore
-                                                    switch(questions[question].typeField)
-                                                    {
-                                                        case constants.profile.TYPE_FIELDS.TEXTAREA:
-                                                        {
-                                                            input = <TextArea
-                                                            name={`${prof.name}_${question}`}
-                                                            className={classes.textarea}
-                                                            //@ts-ignore
-                                                            placeholder={questions[question].placeholder}
-                                                            color={colors.DARK_BLUE}
-                                                            value={answersProfile.values[`${prof.name}_${question}`]}
-                                                            setValue={answersProfile.handleChange}
-                                                            />
-                                                            break;
-                                                        }
-                                                        case constants.profile.TYPE_FIELDS.SELECT:
-                                                        {
-                                                            //@ts-ignore
-                                                            const options =  dictionaryArray(questions[question].options)
-                                                            input = <Select
-                                                            className={classes.select_options}
-                                                            name={`${prof.name}_${question}`}
-                                                            //@ts-ignore
-                                                            placeholder={questions[question].placeholder}
-                                                            color={colors.DARK_BLUE}
-                                                            value={answersProfile.values[`${prof.name}_${question}`]}
-                                                            setValue={answersProfile.setFieldValue}
-                                                            values={options}
-                                                            />    
-                                                            break;
-        
-                                                        }
-                                                    }
-                                                    return input;
-            
-                                                })()}
-                                            </div>
-                                        )
-                                    })
-        
-                                })
-                                content.push(html_questions);
-                            })
-                            break;
-                        }
-                        case constants.WINDOW_STEPS.problems:
-                        {
-                            // console.log(constants.problems.BUTTONS_TEXT[param.problem])
-                            content.push(
-                            <div
-                            id={'Стартап_0'} 
-                            style={{display: 'grid', gridAutoFlow: 'row'}}
-                            >
-                                {(()=>{
-                                    //@ts-ignore
-                                    return constants.problems.BUTTONS_TEXT[param.problem].map((text)=>{
-
-                                        return <SimpleBtn
-                                               type={inputsType.buttons.CIRCLE}
-                                               color={colors.WHITE}
-                                               text={text}
-                                               setValue={()=>{
-
-
-                                               }}
-                                                />
-
-                                    })
-
-                                })()}
-                            </div>
-                            )
-                            break;
-                        }
-                    }
-                    return content;
-                })()}
+            <ProfileWindows 
+            answersProfile={answersProfile}
+            questionnaireWindow={questionnaireWindow}
+            setQuestionnaireWindow={setQuestionnaireWindow}
+            clientProfileList={clientProfileList}
+            profile={constants.profile}
+            />
              
-            </QuestionnaireWindow>
             <FilesUploader 
             idImage={constants.FILE_UPLOADER.id_image}
             className={classes.load_photo}

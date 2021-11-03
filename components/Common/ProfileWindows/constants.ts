@@ -15,46 +15,92 @@ const iconsFolder = '/icons/';
 
 const constants = {
 
-    FILE_UPLOADER: {
-        name: 'load_profile_photo',
-        placeholder: '',
-        id_image: `my_profile_photo`
+    WINDOW_STEPS: {
+        profile_about: 'profile_about', 
+        problems: 'problems', 
+        solving: 'solving',
+        assistants: 'assistants',
+        expert: 'expert',
+        favourites: 'favourites',
+        ask: 'ask',
+        reception: 'reception'
     },
-    personal_data: {
-
-        TITLE: 'Личные данные',
-        FIO: {
-            placeholder: 'ФИО'
-        },
-        PHONE: {
-            placeholder: 'Телефон'
-        },
-        EMAIL: {
-            placeholder: 'email'
-        },
-        CITY: {
-            placeholder: 'Город'
-        },
-        SAVE_BTN: 'Сохранить данные'
+    problems: {
+        
+        TITLE: 'Список проблем:',
+        LAST_BUTTON_TEXT: 'моей проблемы тут нет',
+        BUTTONS_TEXT: {
+            ['Рыночные ниши']: ['не понимаю, как получить доход', 'не умею исследовать потребителей', 'Нет стратегии', 'что делать с идеей, каков мой путь']
+        }
+    },
+    expert:
+    {
+        TITLE: 'Выберите действие:',
+        BUTTONS: [{
+            text: 'записаться',
+            next_window: 'reception'
+        }, 
+        {
+            text: 'задать вопрос',
+            next_window: 'ask'
+        }, 
+        {
+            text: 'добавить в избранное',
+            next_window: 'favourites'
+        }]
     },
     assistants: {
 
+        TITLE: 'Вам помогут:',
+        BOTTOM_BUTTONS: {
+
+            next: {
+                text: 'Далее',
+                name: 'next_btn'
+            },
+            nothing_fits: {
+
+                text: 'Мне ничего не подходит',
+                name: 'nothing_fits'
+            },
+        },
+        BUTTONS_TEXT: {
+
+            ['Индивидуальное сопровождение и трекинг проекта']: ['Наставник/ ментор', 'Эдвайзер/коуч', 'Бизнес-ангел']
+        },
         RADIO_BUTTONS: {
 
-            text: ['попробую'],
+            text: ['попробую', 'пробовал не помогает', 'помогает, но больше не предлагать', 'не то'],
+            ids: ['I_will_try', 'it_not_help', 'do_not_offer', 'not_that'],
             name: 'assistants_params'
-        }
+        },
     },
     solving: {
 
+        TITLE: 'Список решений:',
+        BUTTONS_TEXT: {
+            ['не понимаю, как получить доход']: ['Индивидуальное сопровождение и трекинг проекта', 'Консультации по заполнению грантовых и конкурсных документов', 'обеспечение участия в отраслевых мероприятиях', 'Обучение (образовательные программы)', 'подготовка к выходу на новые рынки', 'Предоставление записей обучающего видео', 'Предоставление команды', 'Предоставление обучающей литературы']
+        },
         RADIO_BUTTONS: {
 
-            text: ['попробую'],
+            text: ['попробую', 'пробовал не помогает', 'помогает, но больше не предлагать', 'не то'],
+            ids: ['I_will_try', 'it_not_help', 'do_not_offer', 'not_that'],
             name: 'solving_params'
+        },
+        BOTTOM_BUTTONS: {
+
+            next: {
+                text: 'Далее',
+                name: 'next_btn'
+            },
+            not_solving: {
+
+                text: 'Не нашёл решения',
+                name: 'not_solving'
+            }
         }
     },
     profile: {
-        TITLE: 'Профиль',
         QUESTION_ICON: `${iconsFolder}question_circle.svg`,
         TYPE_FIELDS: {
 
@@ -177,28 +223,6 @@ const constants = {
             },
         }
     },
-    networks: {
-
-        TITLE: 'Социальные медиа',
-        TELEGRAM: {
-            name: `telegram_${Math.random()}`
-        },
-        INSTAGRAM: {
-            name: `instagram_${Math.random()}`
-        },
-        FACEBOOK: {
-            name: `facebook_${Math.random()}`
-        },
-        VK: {
-            name: `vk_${Math.random()}`
-        }
-    },
-    questionnaire_window: {
-
-    },
-    for_investors: {
-        TITLE: 'Для инвесторов'
-    }
 }
 
-export default constants
+export default constants;

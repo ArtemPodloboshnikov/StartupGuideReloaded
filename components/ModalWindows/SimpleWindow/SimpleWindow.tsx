@@ -8,10 +8,11 @@ type Props = {
     readonly children?: ReactNode,
     readonly onSubmit: (e?: FormEvent<HTMLFormElement> | undefined)=>void,
     readonly close: boolean,
-    readonly setClose: Dispatch<SetStateAction<boolean>>
+    readonly setClose: any,
+    readonly backMode?: boolean
 }
 
-const SimpleWindow = ({className, children, close, setClose, onSubmit}:Props) =>{
+const SimpleWindow = ({className, children, close, setClose, backMode=false, onSubmit}:Props) =>{
 
     return (
     
@@ -22,7 +23,20 @@ const SimpleWindow = ({className, children, close, setClose, onSubmit}:Props) =>
             <div className={classes.shadow}></div>
             <div className={classes.wrap_window}>
                 <div className={classes.window}>
-                    <div className={classes.cross} onClick={()=>setClose(!close)}></div>
+                    <div 
+                    className={!backMode?classes.cross:classes.arrow} 
+                    onClick={()=>{
+                        if (!backMode)
+                        {
+                            setClose(!close)
+                        }
+                        else
+                        {
+                            setClose()
+                        }
+                    }}>
+                        {backMode?<img src='/icons/arrow_back.svg'/>:''}
+                    </div>
                     <form 
                     onSubmit={onSubmit}
                     className={classes.content}>
