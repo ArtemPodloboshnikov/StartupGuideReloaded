@@ -1,7 +1,14 @@
-const constants = {
+import { FormEvent, ReactNode } from "react";
 
-    TITLE: 'Зарегистрироваться',
-    BUTTON: 'Войти'
+type Props = {
+
+    readonly color?: string,
+    readonly className?: string,
+    readonly children?: ReactNode,
+    readonly onSubmit: (e?: FormEvent<HTMLFormElement> | undefined)=>void,
+    readonly close: boolean,
+    readonly setClose: any,
+    readonly backMode?: boolean
 }
 
-export default constants;
+export default Props;

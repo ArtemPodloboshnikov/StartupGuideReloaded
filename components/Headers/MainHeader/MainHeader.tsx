@@ -160,7 +160,7 @@ const MainHeader:NextPage = ()=>{
 
         })
 
-    }, [currentPage])
+    }, [currentPage, close])
     return (
         <>
         <SimpleWindow 
@@ -175,6 +175,7 @@ const MainHeader:NextPage = ()=>{
                         setValue={()=>{
 
                             setCurrentPage(constants.BUTTON_WINDOW.top.enter.index_page);
+                            
                         }}
                         name={constants.BUTTON_WINDOW.top.enter.name}
                         type={inputsType.inputs.neomorh.CIRCLE_BTN}
