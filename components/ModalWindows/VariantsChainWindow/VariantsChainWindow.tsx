@@ -45,7 +45,7 @@ const VariantsChainWindow = ({className, titles, radioBtn, nextBtn, chooseBtn, n
                                 <SimpleBtn
                                 activeMode={true}
                                 type={inputsType.buttons.CIRCLE}
-                                color={colors.WHITE}
+                                color={colors.BLUE}
                                 text={text}
                                 setValue={()=>chooseBtn.action(text)}
                                 />

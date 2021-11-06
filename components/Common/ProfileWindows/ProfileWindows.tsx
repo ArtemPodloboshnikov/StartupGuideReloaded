@@ -173,7 +173,7 @@ const ProfileWindows = ({answersProfile, questionnaireWindow, setQuestionnaireWi
 
                                                 return <SimpleBtn
                                                        type={inputsType.buttons.CIRCLE}
-                                                       color={colors.WHITE}
+                                                       color={colors.BLUE}
                                                        text={text}
                                                        setValue={()=>{
 
@@ -344,8 +344,26 @@ const ProfileWindows = ({answersProfile, questionnaireWindow, setQuestionnaireWi
                                         <h2>{constants.expert.TITLE}</h2>
                                     </div>
                                     <div
-                                    className={classes.problem_content}
+                                    className={classes.problem_content + ' ' + classes.specialist_content}
                                     >
+                                        <div className={classes.specialist}>
+                                            <Select
+                                            name={constants.expert.PEOPLE_SELECT.name}
+                                            placeholder={constants.expert.PEOPLE_SELECT.placeholder}
+                                            color={colors.BLUE}
+                                            value={answersProfile.values[constants.expert.PEOPLE_SELECT.name]}
+                                            setValue={answersProfile.setFieldValue}
+                                            values={dictionaryArray(Object.keys(constants.expert.PEOPLE))}
+                                            />
+                                            {answersProfile.values[constants.expert.PEOPLE_SELECT.name]?
+                                            <>
+                                                <div dangerouslySetInnerHTML={{__html: '<i class="fa fa-star-o" aria-hidden="true"></i>'.repeat(constants.expert.PEOPLE[String(answersProfile.values[constants.expert.PEOPLE_SELECT.name])].rating)}}/>
+                                                <a href={constants.expert.PEOPLE[String(answersProfile.values[constants.expert.PEOPLE_SELECT.name])].href}>{constants.expert.READ_MORE}</a>
+                                            </>
+                                            :
+                                            ''}
+                                            
+                                        </div>
                                         {(()=>{
                                             
                                             return (
@@ -353,16 +371,19 @@ const ProfileWindows = ({answersProfile, questionnaireWindow, setQuestionnaireWi
                                                 constants.expert.BUTTONS.map((obj)=>{
 
                                                 return <SimpleBtn
-                                                       type={inputsType.buttons.CIRCLE}
-                                                       color={colors.WHITE}
-                                                       text={obj.text}
-                                                       setValue={()=>{
+                                                        type={inputsType.buttons.CIRCLE}
+                                                        color={colors.BLUE}
+                                                        text={obj.text}
+                                                        setValue={()=>{
 
-                                                          
-                                                            setProfileWindowStep(obj.next_window);
+                                                            
+                                                                setProfileWindowStep(obj.next_window);
 
-                                                       }}
-                                                       />
+                                                        }}
+                                                        />
+
+                                             
+                                                 
 
                                                 })
                                             )

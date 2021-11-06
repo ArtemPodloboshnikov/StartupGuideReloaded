@@ -60,7 +60,9 @@ const SimpleBtn = ({className, text, children, disable=false, color, type, style
 
         }}
         >
-            <div ref={wrap_ref} className={`button ${(active)?classes.active_hover:''}`}>
+            <div 
+            ref={wrap_ref} 
+            className={`button ${(active)?classes.active_hover:''} ${(disable)?classes.disable_button:''}`}>
                 {text||children}
             </div>
         </div>

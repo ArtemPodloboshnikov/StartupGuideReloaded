@@ -94,3 +94,7 @@
     @include wrap_btn($night_blue, 'on');
     @extend %circle;
 }
+.disable_button
+{
+    pointer-events: none;
+}

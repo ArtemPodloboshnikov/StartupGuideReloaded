@@ -11,6 +11,8 @@ const incubator: string = 'Инкубатор';
 const startup: string = 'Стартап';
 const social_startup_event: string = 'Стартап социальный/ивент';
 const student_startup: string = 'Стартап ученический';
+const suvorov: string = 'Суворов Александр Васильевич';
+const kutuzov: string = 'Кутузов Михаил Илларионович';
 const iconsFolder = '/icons/';
 
 const constants = {
@@ -36,6 +38,24 @@ const constants = {
     expert:
     {
         TITLE: 'Выберите действие:',
+        READ_MORE: 'Узнать больше...',
+        PEOPLE_SELECT: {
+
+            name: 'my_own_specialist',
+            placeholder: 'Выберите специалиста'
+        },
+        PEOPLE: {
+
+            [suvorov]: {
+                rating: 5,
+                href: '#'
+            },
+            [kutuzov]: {
+                rating: 4,
+                href: '#'
+            }
+
+        },
         BUTTONS: [{
             text: 'записаться',
             next_window: 'reception'
@@ -174,7 +194,7 @@ const constants = {
             },
             [startup]: {
                 description: 'Стартап — это вновь созданная организация, которая занимается разработкой новых товаров или услуг в условиях чрезвычайной неопределенности.',
-                questions: [{'Комерческое наименование': {
+                questions: [{'Коммерческое наименование': {
 
                     typeField: 'textarea',
                     placeholder: 'Введите сюда ответ'

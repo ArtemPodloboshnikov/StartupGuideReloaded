@@ -74,7 +74,7 @@
         justify-items: start;
         grid-template-columns: repeat(2, 1fr);
         grid-template-rows: repeat(2, 1fr);
-
+        
     }
 }
 .forInvestors
@@ -95,8 +95,4 @@
         grid-row: 1 / 2;
         @extend %content_center;
     }
-}
-.textarea
-{
-    justify-self: stretch !important;
 }

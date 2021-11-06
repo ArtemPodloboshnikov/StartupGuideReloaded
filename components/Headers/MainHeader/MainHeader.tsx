@@ -64,9 +64,16 @@ const MainHeader:NextPage = ()=>{
             {
                 const response = await postRequest(`${api.HOST}${api.POST.login.query}?${api.POST.login.parameters.EMAIL}=${email_for_enter}&${api.POST.login.parameters.PASSWORD}=${password_for_enter}`,
                 {})
-                changeClientData(response);
-                setClose(!close);
-                router.push(constants.BUTTON_WINDOW.bottom.enter.url)
+                if (response.access_token !== undefined)
+                {
+                    changeClientData(response);
+                    setClose(!close);
+                    router.push(constants.BUTTON_WINDOW.bottom.enter.url)
+                }
+                else
+                {
+                    alert(constants.ERRORS_MESSAGE.FAILED_LOGIN);
+                }
             } 
             async function registration()
             {
@@ -118,27 +125,47 @@ const MainHeader:NextPage = ()=>{
     
     const marginTop = {marginTop: '5%'};
 
-    const inputs = [registration_data.values.fio, 
-                    registration_data.values.phone, 
-                    registration_data.values.email, 
-                    registration_data.values.password, 
-                    registration_data.values.double_password, 
-                    registration_data.values.I_agree_window_checkbox];
-    let correct: boolean = false;
-    // console.log(inputs)
-    for (let input of inputs)
+    const inputs_reg = [
+        registration_data.values.fio, 
+        registration_data.values.phone, 
+        registration_data.values.email, 
+        registration_data.values.password, 
+        registration_data.values.double_password, 
+        registration_data.values.I_agree_window_checkbox
+    ];
+
+    const inputs_ent = [
+        registration_data.values.email_for_enter, 
+        registration_data.values.password_for_enter, 
+    ];
+    let correct: boolean[] = [false, false];
+    
+    for (let input of inputs_reg)
     {
         if (!input)
         {
-            correct = false
+            correct[0] = false
             break;
         }
         else
         {
-            correct = true;
+            correct[0] = true;
         }
     }
-    
+
+    for (let input of inputs_ent)
+    {
+        if (!input)
+        {
+            correct[1] = false
+            break;
+        }
+        else
+        {
+            correct[1] = true;
+        }
+    }
+    console.log(correct)
     useEffect(()=>{
         console.log(ids_pages_window)
         ids_pages_window.map((page_id, index)=>{
@@ -294,7 +321,7 @@ const MainHeader:NextPage = ()=>{
                     <SimpleBtn
                     type={inputsType.buttons.CIRCLE}
                     color={colors.BLUE}
-                    disable={!correct}
+                    disable={!correct[0]}
                     setValue={()=>{
                     
                     }}
@@ -346,7 +373,7 @@ const MainHeader:NextPage = ()=>{
                     <SimpleBtn
                     type={inputsType.buttons.CIRCLE}
                     color={colors.BLUE}
-                    disable={!correct}
+                    disable={!correct[1]}
                     setValue={()=>{
                     
                     }}

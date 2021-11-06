@@ -32,11 +32,36 @@
     }
    
 }
+.specialist_content
+{
+    .specialist
+    {
+        display: grid;
+        grid-auto-flow: row;
+        justify-self: stretch;
+        width: 100%;
+        & > div:not(:first-child), a
+        {
+            margin-top: 7%;
+        }
+        & > div:first-child > div:last-child
+        {
+           margin-top: 5%;
+        }
+        & > div:nth-child(2)
+        {
+            display: grid;
+            grid-auto-flow: column;
+            @extend %items_center;
+        }
+    }
+}
 .select_options
 {
     div:last-child
     {
         margin-top: 4%;
+        z-index: 101;
     }
 }
 .textarea

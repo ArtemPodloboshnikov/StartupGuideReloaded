@@ -59,3 +59,7 @@
 {
     @include select($dark_blue);
 }
+.wrap_blue
+{
+    @include select($blue);
+}

@@ -111,7 +111,8 @@ const constants =
     },
     ERRORS_MESSAGE: {
 
-        FAILED_REGISTRATION: 'Такой пользователь уже существует'
+        FAILED_REGISTRATION: 'Такой пользователь уже существует',
+        FAILED_LOGIN: 'Неправильный email или пароль'
     }
 }
 

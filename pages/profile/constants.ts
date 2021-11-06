@@ -20,6 +20,11 @@ const constants = {
         placeholder: '',
         id_image: `my_profile_photo`
     },
+    expert: {
+        PEOPLE_SELECT: {
+            name: 'my_own_specialist'
+        }
+    },
     personal_data: {
 
         TITLE: 'Личные данные',
@@ -129,7 +134,7 @@ const constants = {
             [startup]: {
                 description: 'Стартап — это вновь созданная организация, которая занимается разработкой новых товаров или услуг в условиях чрезвычайной неопределенности.',
                 questions: [
-                {'Комерческое наименование': {
+                {'Коммерческое наименование': {
 
                     typeField: 'textarea',
                     placeholder: 'Введите сюда ответ'
